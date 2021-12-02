@@ -128,104 +128,96 @@
             </div>
         </nav>
 
- 
-        <div class="container" style="text-align: center; margin-top: 2%; margin-bottom: 2%;">
-            <h1 style="text-align: center; margin-top: 2%;  font-family: 'Raleway',sans-serif; font-size: 45px; font-weight: 500; line-height: 48px;">Psicology</h1>
-
-            <div class="row">
-                <div class="column">
-                    <div class="card">
-                        <h1>Tiago Pereira Silva</h1>
-                        <p class="age">... anos</p>
-                        <a href="#"><i class="fa fa-dribbble"></i></a>
-                        <p>
-                            <form action="Regist/PacientsRegister.html">
-                                <button type="submit">See More</button>
-                            </form>
-                        </p>
-                    </div>
-                </div>
-                <div class="column">
-                    <div class="card">
-                        <h1>João Silva Cardoso</h1>
-                        <p class="age">... anos</p>
-                        <a href="#"><i class="fa fa-dribbble"></i></a>
-                        <p>
-                            <form action="Regist/PacientsRegister.html">
-                                <button type="submit">See More</button>
-                            </form>
-                        </p>
-                    </div>
-                </div>
-                <div class="column">
-                    <div class="card">
-                        <h1>João Silva Cardoso</h1>
-                        <p class="age">... anos</p>
-                        <a href="#"><i class="fa fa-dribbble"></i></a>
-                        <p>
-                            <form action="Regist/PacientsRegister.html">
-                                <button type="submit">See More</button>
-                            </form>
-                        </p>
-                    </div>
-                </div>
-              </div> 
-
-        </div>
-
-        <div class="container" style="text-align: center; margin-top: 2%; margin-bottom: 2%;">
-            <h1 style="text-align: center; margin-top: 2%;  font-family: 'Raleway',sans-serif; font-size: 45px; font-weight: 500; line-height: 48px;">Cardiology</h1>
-
-            <div class="row">
-                <div class="column">
-                    <div class="card">
-                        <h1>Tiago Pereira Silva</h1>
-                        <p class="age">... anos</p>
-                        <a href="#"><i class="fa fa-dribbble"></i></a>
-                        <p>
-                            <form action="Regist/PacientsRegister.html">
-                                <button type="submit">See More</button>
-                            </form>
-                        </p>
-                    </div>
-                </div>
-                <div class="column">
-                    <div class="card">
-                        <h1>João Silva Cardoso</h1>
-                        <p class="age">... anos</p>
-                        <a href="#"><i class="fa fa-dribbble"></i></a>
-                        <p>
-                            <form action="Regist/PacientsRegister.html">
-                                <button type="submit">See More</button>
-                            </form>
-                        </p>
-                    </div>
-                </div>
-                <div class="column">
-                    <div class="card">
-                        <h1>João Silva Cardoso</h1>
-                        <p class="age">... anos</p>
-                        <a href="#"><i class="fa fa-dribbble"></i></a>
-                        <p>
-                            <form action="Regist/PacientsRegister.html">
-                                <button type="submit">See More</button>
-                            </form>
-                        </p>
-                    </div>
-                </div>
-               
-              </div> 
-        </div>
-
         <div class="container">
-            
-            <form action="Regist/PacientsRegister.html">
-                <button type="submit">Add Pacient</button>
-            </form>
-        </div>
 
-
-
-
-    </body>
-</html>
+            <div class="row">
+                <div class="col-12 col-md-8">
+                   <div class="message-box">
+                      <h4>Personal Data</h4>
+                      <br>
+                      <div class="row">
+                         <div class="col-6 col-md-4">
+                            <b>Name: </b>
+                            <em id ="userFullName"></em>
+                         </div>
+                         <div class="col-6 col-md-4">
+                            <b>Age: </b>
+                            <em id="userAge"></em>
+                         </div>
+                         <div class="col-6 col-md-4">
+                            <b>Gender:</b>
+                            <em id="userGender"></em>
+                         </div>
+                      </div>
+                      <div class="row">
+                         <div class="col-6 col-md-4">
+                            <b>Weight: </b>
+                            <em id="userWeight"></em>
+                            <em> kg</em>
+                         </div>
+                         <div class="col-6 col-md-4">
+                            <b>Height: </b>
+                            <em id="userHeight"></em>
+                            <em> m</em>
+                         </div>
+                      </div>
+                      <h1></h1>
+                      <h1></h1>
+                      <div class="row">
+                         <div class="col-md-6">
+                            <p><b>Diseases and Conditions: </b></p>
+                            <ul id="userConditionList"></ul>  
+                         </div>
+                         <div class="col-md-6">
+                            <p><b>Medication: </b></p>
+                            <ul id="userMedicationList"></ul>
+                         </div>
+                      </div>
+                   </div>
+                   <!-- end messagebox -->
+                </div>
+                <!-- end col -->
+                <div class="col-6 col-md-4">
+                   <div class="post-media wow fadeIn" style="height: 50%; width: 50%;">
+                      <img src="" id="userPhoto" alt="" class="img-responsive" > 
+                   </div>
+                   <!-- end media -->
+                </div>
+                <!-- end col -->
+             </div>
+             <!-- end row -->
+    
+             <!-- LATEST VALUES -->
+             <hr class="hr1">
+                <div class="alignitems" style="margin-bottom: 30px;">
+                   <input type="button" value="Information from latest measurements" name="latestInfo" id="latestInfo"  class="switch-btn" onclick="">
+                </div>
+             <div id="latestInf">
+                <div class="row"> 
+                   <div class="col-md-4"> <b>Blood Pressure</b>
+                      <p id="latest_bp"></p>
+                   </div>
+    
+                   <div class="col-md-4"> <b>Body Temperature</b>
+                      <p id="latest_bt"></p>
+                   </div>
+    
+                   <div class="col-md-4"> <b>Heart Rate</b>
+                      <p id="latest_hr"></p>
+                   </div>
+                </div>
+    
+                <br>
+                <div class="row"> 
+                   <div  class="col-md-6"> <b>Sugar Level</b>
+                      <p id="latest_sl"></p>
+                   </div>
+                   <div  class="col-md-6"> <b>Oxygen Saturation</b>
+                      <p id="latest_ol"></p>
+                   </div>
+                
+                </div>
+             </div>
+            </div>
+        </body>
+    </html>
