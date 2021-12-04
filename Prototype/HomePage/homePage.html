@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
+        <title>Home Page</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
+    <body>
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a href="homePage.html">
+                <img src="../logo.png" alt="LifeManager Logo" width="50" style="margin-left: 20px; margin-right: 20px;">
+            </a>
+            <a class="navbar-brand" href="homePage.html">LifeManager</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item dropdown" style="float:right">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Login
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="../Logins/AdminLogin.html">Admin</a>
+                            <a class="dropdown-item" href="../Logins/MedicalStaffLogin.html">Medical Staff</a>
+                            <a class="dropdown-item" href="../Logins/PacientLogin.html">Pacient</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="container" style="text-align: center; margin-top: 2%; margin-bottom: 2%;">
+            <h1 style="text-align: center; margin-top: 2%;  font-family: 'Raleway',sans-serif; font-size: 45px; font-weight: 800; line-height: 72px;">LIFEMANAGER</h1>
+            <div style="padding-bottom: 5%;">
+                <h5 style="position: absolute; left: 30%; width: 40%;">A platform designed to help medical staff keep tracking pacients' informations like body temperature and blood pressure.</h5>
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            <div class="row d-flex justify-content-center">
+                <div class="card text-white bg-dark mb-3" style="width: 18rem; margin: 2%;">
+                    <img src="MedicalStaff.jpg" class="card-img-top" alt="trackers">
+                    <div class="card-body">
+                        <h5 class="card-title">Medical Staff</h5>
+                        <p class="card-text">Follow all your pacients in a remote way</p>
+                        <div style="text-align: center; margin-top: 30%;">
+                            <a href="../Logins/MedicalStaffLogin.html" class="btn btn-light">Login as medical staff</a>
+                        </div>
+                    </div>
+                </div>
+                
+               
+                <div class="card text-white bg-dark mb-3" style="width: 18rem; margin: 2%;">
+                    <img src="Pacients.jpg" class="card-img-top" alt="wellness check">
+                    <div class="card-body">
+                        <h5 class="card-title">Pacients</h5>
+                        <p class="card-text">See your personal information but also follow your glycemia levels and more. </p>
+                        <div style="text-align: center; margin-top: 30%;">
+                            <a href="../Logins/PacientLogin.html" class="btn btn-light">Login as pacient</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-footer" style="margin-top: 5%; text-align: center;">
+            <p style="color: lightgray;">Projeto IES 2021/2022</p>
+            <p style="color: lightgray; margin-top: -1.4%;">Marta Ferreira, Pedro Figueiredo, Theo Magno, Renato Dias</p>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    </body>
+</html>

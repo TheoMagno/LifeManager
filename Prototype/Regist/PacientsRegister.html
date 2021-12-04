@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
+        <title> Pacient Register</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <style>
+            body {font-family: Arial, Helvetica, sans-serif;}
+            form {border: 3px solid #f1f1f1;}
+            
+            input[type=text], input[type=password] {
+              width: 100%;
+              padding: 12px 20px;
+              margin: 8px 0;
+              display: inline-block;
+              border: 1px solid #ccc;
+              box-sizing: border-box;
+            }
+            
+            button {
+              background-color: #04AA6D;
+              color: white;
+              padding: 14px 20px;
+              margin: 8px 0;
+              border: none;
+              cursor: pointer;
+              width: 100%;
+            }
+            
+            button:hover {
+              opacity: 0.8;
+            }
+            
+            .cancelbtn {
+              width: auto;
+              padding: 10px 18px;
+              background-color: #f44336;
+            }
+            
+            .imgcontainer {
+              text-align: center;
+              margin: 24px 0 12px 0;
+            }
+            
+            img.avatar {
+              width: 40%;
+              border-radius: 50%;
+            }
+            
+            .container {
+              padding: 16px;
+            }
+            
+            span.psw {
+              float: right;
+              padding-top: 16px;
+            }
+            
+            /* Change styles for span and cancel button on extra small screens */
+            @media screen and (max-width: 300px) {
+              span.psw {
+                 display: block;
+                 float: none;
+              }
+              .cancelbtn {
+                 width: 100%;
+              }
+            }
+            </style>
+    </head>
+    <body>
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a href="homePage.html">
+                <img src="../logo.png" alt="LifeManager Logo" width="50" style="margin-left: 20px; margin-right: 20px;">
+            </a>
+            <a class="navbar-brand" href="../HomePage/homePage.html">LifeManager</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                  <li class="nav-item">
+                    <a class="nav-link" href="../PacientsSearch.html">Search</a>
+                  </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../HomePage/homePage.html">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        
+        <form action="action_page.php" method="post">
+            <div class="container" style="text-align: center; margin-top: 2%; margin-bottom: 2%;">
+                <h1 style="text-align: center; margin-top: 2%;  font-family: 'Raleway',sans-serif; font-size: 45px; font-weight: 500; line-height: 48px;">Pacient Register</h1>
+            </div>
+            
+              <div class="container">
+
+                <label for="uname"><b>Full Name</b></label>
+                <input type="text" placeholder="Enter Full Name" name="uname" required>
+
+                <label for="uID"><b>National Health Service User ID</b></label>
+                <input type="text" placeholder="Enter National Health Service User ID" name="uID" required>
+
+                <label for="uage"><b>Age</b></label>
+                <input type="text" placeholder="Enter Age" name="uage" required>
+
+                <label for="ugender"><b>Gender</b></label>
+                <input type="text" placeholder="Enter Gender" name="ugender" required>
+
+                <label for="uweight"><b>Weight</b></label>
+                <input type="text" placeholder="Enter Weight" name="uweight" required>
+
+                <label for="uheight"><b>Height</b></label>
+                <input type="text" placeholder="Enter Height" name="uheight" required>
+
+                <label for="uemail"><b>Email</b></label>
+                <input type="text" placeholder="Enter Email" name="uemail" required>
+            
+                <label for="psw"><b>Password</b></label>
+                <input type="password" placeholder="Enter Password" name="psw" required>
+
+                <label for="psw"><b>Repeat Password</b></label>
+                <input type="password" placeholder="Repeat Password" name="psw" required>
+            
+                <button type="submit">Regist</button>
+              </div>
+
+         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    </body>
+</html>
+
+
+
+
+
+
+
