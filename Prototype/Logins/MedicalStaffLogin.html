@@ -2,7 +2,7 @@
 <html>
     <head>
         <!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
-        <title>Pacient Login</title>
+        <title>Medical Staff Login</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <style>
@@ -88,6 +88,7 @@
                             Login
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="../Logins/AdminLogin.html">Admin</a>
                             <a class="dropdown-item" href="../Logins/MedicalStaffLogin.html">Medical Staff</a>
                             <a class="dropdown-item" href="../Logins/PacientLogin.html">Pacient</a>
                         </div>
@@ -97,13 +98,13 @@
         </nav>
 
         <form action="action_page.php" method="post">
-          <div class="container" style="text-align: center; margin-top: 2%; margin-bottom: 2%;">
-              <h1 style="text-align: center; margin-top: 2%;  font-family: 'Raleway',sans-serif; font-size: 45px; font-weight: 500; line-height: 48px;">Pacient Login</h1>
-          </div>
+            <div class="container" style="text-align: center; margin-top: 2%; margin-bottom: 2%;">
+                <h1 style="text-align: center; margin-top: 2%;  font-family: 'Raleway',sans-serif; font-size: 45px; font-weight: 500; line-height: 48px;">Medical Staff Login</h1>
+            </div>
           
             <div class="container">
-              <label for="uname"><b>National Health Service User ID</b></label>
-              <input type="text" placeholder="Enter National Health Service User ID" name="uname" required>
+              <label for="uname"><b>Medical ID</b></label>
+              <input type="text" placeholder="Enter Medical ID" name="uname" required>
           
               <label for="psw"><b>Password</b></label>
               <input type="password" placeholder="Enter Password" name="psw" required>
@@ -123,6 +124,5 @@
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
     </body>
 </html>

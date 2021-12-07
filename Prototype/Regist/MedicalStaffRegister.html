@@ -2,7 +2,7 @@
 <html>
     <head>
         <!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
-        <title>Medical Staff Login</title>
+        <title> Medical Staff Register</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <style>
@@ -68,7 +68,6 @@
               }
             }
             </style>
-
     </head>
     <body>
 
@@ -83,45 +82,56 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item dropdown" style="float:right">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Login
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="../Logins/MedicalStaffLogin.html">Medical Staff</a>
-                            <a class="dropdown-item" href="../Logins/PacientLogin.html">Pacient</a>
-                        </div>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../PacientsSearch.html">Search</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../HomePage/homePage.html">Logout</a>
                     </li>
                 </ul>
             </div>
         </nav>
-
+        
         <form action="action_page.php" method="post">
             <div class="container" style="text-align: center; margin-top: 2%; margin-bottom: 2%;">
-                <h1 style="text-align: center; margin-top: 2%;  font-family: 'Raleway',sans-serif; font-size: 45px; font-weight: 500; line-height: 48px;">Medical Staff Login</h1>
+                <h1 style="text-align: center; margin-top: 2%;  font-family: 'Raleway',sans-serif; font-size: 45px; font-weight: 500; line-height: 48px;">Medical Staff Register</h1>
             </div>
-          
-            <div class="container">
-              <label for="uname"><b>Medical ID</b></label>
-              <input type="text" placeholder="Enter Medical ID" name="uname" required>
-          
-              <label for="psw"><b>Password</b></label>
-              <input type="password" placeholder="Enter Password" name="psw" required>
-          
-              <button type="submit">Login</button>
-              <label>
-                <input type="checkbox" checked="checked" name="remember"> Remember me
-              </label>
-            </div>
-          
-            <div class="container" style="background-color:#f1f1f1">
-              <button type="button" class="cancelbtn">Clear</button>
-              <span class="psw">Forgot <a href="#">password?</a></span>
-            </div>
-        </form>
+            
+              <div class="container">
 
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+                <label for="uname"><b>Full Name</b></label>
+                <input type="text" placeholder="Enter Full Name" name="uname" required>
+
+                <label for="uID"><b>Medical ID</b></label>
+                <input type="text" placeholder="Enter Medical ID" name="uID" required>
+
+                <label for="uage"><b>Age</b></label>
+                <input type="text" placeholder="Enter Age" name="uage" required>
+
+                <label for="ugender"><b>Gender</b></label>
+                <input type="text" placeholder="Enter Gender" name="ugender" required>
+
+                <label for="uemail"><b>Email</b></label>
+                <input type="text" placeholder="Enter Email" name="uemail" required>
+
+                <label for="uworkplace"><b>Workplace</b></label>
+                <input type="text" placeholder="Enter Workplace" name="uworkplace" required>
+
+                <label for="uspeciality"><b>Speciality</b></label>
+                <input type="text" placeholder="Enter Speciality" name="uspeciality" required>
+            
+                <label for="psw"><b>Password</b></label>
+                <input type="password" placeholder="Enter Password" name="psw" required>
+
+                <label for="psw"><b>Repeat Password</b></label>
+                <input type="password" placeholder="Repeat Password" name="psw" required>
+            
+                <button type="submit">Regist</button>
+              </div>
+
+         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
     </body>
 </html>
