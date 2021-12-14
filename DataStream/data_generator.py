@@ -6,6 +6,7 @@ import json
 import time
 import asyncio
 import os
+import pika
 from random import randint
 
 #---------------------------------------------------------------------
@@ -27,6 +28,12 @@ class Generator:
 
     def __init__(self):
         self.sensor_id = 1
+        self.connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
+        self.channel = self.connection.channel()
+        self.channel.queue_declare(queue='heartbeat')
+        self.channel.queue_declare(queue='blood_pressure')
+        self.channel.queue_declare(queue='temperature')
+        self.channel.queue_declare(queue='sugar_level')
     
 
     async def gen_heart_beats(self):
@@ -37,6 +44,7 @@ class Generator:
             hb = np.random.randn() * sigma + mu
             json_text = {'id': self.sensor_id, 'heartbeat': int(hb)}
             print(json_text)
+            self.channel.basic_publish(exchange='', routing_key='heartbeat', body=json.dumps(json_text))
             await asyncio.sleep(5)
 
 
@@ -50,7 +58,7 @@ class Generator:
             diastolic = np.random.randn() * sigma + diastolic_mu        
             json_text = {'id': self.sensor_id, 'systolic': round(float(systolic),2), 'diastolic': round(float(diastolic),2)}
             print(json_text)
-
+            self.channel.basic_publish(exchange='', routing_key='blood_pressure', body=json.dumps(json_text))
             await asyncio.sleep(5)
 
     
@@ -62,6 +70,7 @@ class Generator:
             temperature = np.random.randn() * sigma + mu       
             json_text = {'id': self.sensor_id, 'temperature': round(float(temperature),2)}
             print(json_text)
+            self.channel.basic_publish(exchange='', routing_key='temperature', body=json.dumps(json_text))
             await asyncio.sleep(5)
 
     
@@ -73,6 +82,7 @@ class Generator:
             sugar = np.random.randn() * sigma + mu
             json_text = {'id': self.sensor_id, 'sugar': float(sugar)}
             print(json_text)
+            self.channel.basic_publish(exchange='', routing_key='sugar_level', body=json.dumps(json_text))
             await asyncio.sleep(5)
 
 
