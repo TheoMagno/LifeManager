@@ -37,12 +37,12 @@ public class Controller {
         return service.savePacient(pacient);
     }
 
-    @GetMapping("/doctors")
+    @GetMapping("/pacients")
     public List<Pacient> findPacients() {
         return service.getAllPacients();
     }
 
-    @DeleteMapping("/doctors/{id}")
+    @DeleteMapping("/pacients/{id}")
     public String deletePacien(@PathVariable(value = "id") Long id) {
         return service.deletePacient(id);
     }
