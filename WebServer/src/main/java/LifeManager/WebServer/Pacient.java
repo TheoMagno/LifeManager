@@ -5,7 +5,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
 import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -25,9 +27,9 @@ public class Pacient {
     private float weight;
     private float height;
     @ElementCollection
-    private ArrayList<String> medication;
+    private List<String> medication;
     @ElementCollection
-    private ArrayList<String> conditions;
+    private List<String> conditions;
     private String password;
 
     public Pacient() {
@@ -132,11 +134,11 @@ public class Pacient {
         this.conditions.remove(condition);
     }
 
-    public ArrayList<String> getMedication() {
+    public List<String> getMedication() {
         return medication;
     }
     
-    public ArrayList<String> getConditions() {
+    public List<String> getConditions() {
         return conditions;
     }
 
