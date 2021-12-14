@@ -68,6 +68,42 @@
               }
             }
             </style>
+            <script>
+              function login()
+                {
+                  var uid = document.getElementById("medicalid").value;
+                  var pwd = document.getElementById("pwd1").value;
+                  //var filter = /^([0-9]{8})+$/;
+                  if(uid =='')
+                  {
+                    alert("please enter your medical id.");
+                  }
+                  else if(pwd=='')
+                  {
+                    alert("enter the password");
+                  }
+                  else if(uid.length != 8)
+                  {
+                    alert("Enter valid medical id.");
+                  }
+                  else if(pwd.length < 6 )
+                  {
+                    alert("Password min length is 6.");
+                  }
+                  else
+                  {
+                    alert('Thank You for Login & You are Redirecting to LifeManager Website');
+                    //Redirecting to other page or webste code or you can set your own html page.
+                    window.location = "../MedStaffPage.html";
+                  }
+                }
+                //Reset Inputfield code.
+                function clearFunc()
+                {
+                  document.getElementById("medicalid").value="";
+                  document.getElementById("pwd1").value="";
+                }
+            </script>
 
     </head>
     <body>
@@ -97,29 +133,31 @@
             </div>
         </nav>
 
-        <form action="action_page.php" method="post">
+        
             <div class="container" style="text-align: center; margin-top: 2%; margin-bottom: 2%;">
                 <h1 style="text-align: center; margin-top: 2%;  font-family: 'Raleway',sans-serif; font-size: 45px; font-weight: 500; line-height: 48px;">Medical Staff Login</h1>
             </div>
           
-            <div class="container">
-              <label for="uname"><b>Medical ID</b></label>
-              <input type="text" placeholder="Enter Medical ID" name="uname" required>
-          
-              <label for="psw"><b>Password</b></label>
-              <input type="password" placeholder="Enter Password" name="psw" required>
-          
-              <button type="submit">Login</button>
-              <label>
-                <input type="checkbox" checked="checked" name="remember"> Remember me
-              </label>
-            </div>
-          
-            <div class="container" style="background-color:#f1f1f1">
-              <button type="button" class="cancelbtn">Clear</button>
-              <span class="psw">Forgot <a href="#">password?</a></span>
-            </div>
-        </form>
+            <!-- Login box -->
+	        <div class="login">
+            <table cellspacing="2" align="center" cellpadding="8" border="0">
+              <tr>
+                <td>Enter Medical ID:</td>
+                <td><input type="text" placeholder="Enter Medical ID here" id="medicalid" class="tb" /></td>
+              </tr>
+              <tr>
+                <td>Enter Password:</td>
+                <td><input type="password" placeholder="Enter Password here" id="pwd1" class="tb" /></td>
+              </tr>
+              <tr>
+                <td></td>
+              <td>
+                <input type="submit" value="Reset" onclick="clearFunc()" class="btn" />
+                <input type="submit" value="Login" class="btn" onClick="login()" /></td>
+              </tr>
+            </table>
+          </div>
+       
 
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>

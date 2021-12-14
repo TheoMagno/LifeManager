@@ -92,7 +92,7 @@
             </div>
         </nav>
         
-        <form action="action_page.php" method="post">
+        <form action="../AdminPage.html" method="post">
             <div class="container" style="text-align: center; margin-top: 2%; margin-bottom: 2%;">
                 <h1 style="text-align: center; margin-top: 2%;  font-family: 'Raleway',sans-serif; font-size: 45px; font-weight: 500; line-height: 48px;">Medical Staff Register</h1>
             </div>
@@ -126,12 +126,17 @@
                 <label for="psw"><b>Repeat Password</b></label>
                 <input type="password" placeholder="Repeat Password" name="psw" required>
             
-                <button type="submit">Regist</button>
+                <button onclick="myFunction()">Regist</button>
               </div>
 
          <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <script>
+          function myFunction() {
+            alert("Medical Staff successfully registered!!");
+          }
+          </script>
 
     </body>
 </html>
