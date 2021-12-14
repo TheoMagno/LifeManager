@@ -19,14 +19,12 @@ public class MessageBroker {
 
         channel.exchangeDeclare(EXCHANGE_NAME, "fanout");
         String queueName = channel.queueDeclare().getQueue();
-        channel.queueBind(queueName, EXCHANGE_NAME, "");
-
-        System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
+        channel.queueBind("blood_pressure", EXCHANGE_NAME, "");
 
         DeliverCallback deliverCallback = (consumerTag, delivery) -> {
             String message = new String(delivery.getBody(), "UTF-8");
             System.out.println(" [x] Received '" + message + "'");
         };
-        channel.basicConsume(queueName, true, deliverCallback, consumerTag -> { });
+        channel.basicConsume("blood_pressure", true, deliverCallback, consumerTag -> { });
     }
 }
