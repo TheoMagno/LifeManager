@@ -6,7 +6,6 @@ import json
 import time
 import asyncio
 import os
-import request
 from random import randint
 
 #---------------------------------------------------------------------
