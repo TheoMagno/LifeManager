@@ -1,41 +1,47 @@
 package LifeManager.WebServer;
 
-import org.springframework.data.annotation.Id;
-
-import javax.persistence.*;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
-@Table(name = "Doctor")
+@Table(name = "doctor")
 public class Doctor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long medicalID;
-    private String first_name;
-    private String last_name;
+    private String name;
     private String password;
     private String speciality;
     private int age;
     private char gender;
     private String email;
     private String workplace;
+    @OneToMany(mappedBy="doctor", orphanRemoval = true)
+    private List<Pacient> pacients;
 
     public Doctor() {
 
     }
 
-    public Doctor(String first_name, String last_name, Long medicalID, int age, char gender, String email, String workplace, String speciality, String password) {
+    public Doctor(String name, Long medicalID, int age, char gender, String email, String workplace, String speciality, String password) {
         this.medicalID = medicalID;
-        this.first_name = first_name;
-        this.last_name = last_name;
+        this.name = name;
         this.password = password;
         this.speciality = speciality;
         this.age = age;
         this.gender = gender;
         this.email = email;
         this.workplace = workplace;
+        this.pacients = new ArrayList<Pacient>();
     }
 
     public Long getId() {
@@ -45,7 +51,7 @@ public class Doctor {
         this.id = id;
     }
 
-    @Column(name = "medical_ID", nullable = false)
+    @Column(name = "medical_ID", nullable = false, unique = true)
     public Long getMedicalID() {
         return medicalID;
     }
@@ -53,22 +59,13 @@ public class Doctor {
         this.medicalID = medicalID;
     }
 
-    @Column(name = "first_name", nullable = false)
-    public String getFirstName() {
-        return first_name;
+    @Column(name = "name", nullable = false)
+    public String getName() {
+        return name;
     }
-    public void setFirstName(String firstName) {
-        this.first_name = firstName;
+    public void setName(String name) {
+        this.name = name;
     }
-
-    @Column(name = "last_name", nullable = false)
-    public String getLastName() {
-        return last_name;
-    }
-    public void setLastName(String lastName) {
-        this.last_name = lastName;
-    }
-
     @Column(name = "password", nullable = false)
     public String getPassword() {
         return password;
@@ -120,8 +117,7 @@ public class Doctor {
     @Override
     public String toString() {
         return "Doctor [medicalID='" + getMedicalID() + "'" +
-            ", first_name='" + getFirstName() + "'" +
-            ", last_name='" + getLastName() + "'" +
+            ", name='" + getName() + "'" +
             ", password='" + getPassword() + "'" +
             ", speciality='" + getSpeciality() + "'" +
             ", age='" + getAge() + "'" +

@@ -4,40 +4,42 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 
 @Entity
-@Table(name = "Pacient")
+@Table(name = "pacient")
 public class Pacient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long numUtente;
-    private String first_name;
-    private String last_name;
+    private String name;
     private int age;
     private char gender;
     private float weight;
     private float height;
     @ElementCollection
-    private ArrayList<String> medication;
+    private List<String> medication;
     @ElementCollection
-    private ArrayList<String> conditions;
+    private List<String> conditions;
     private String password;
+    @ManyToOne
+    @JoinColumn(name="doctor")
+    private Doctor doctor;
 
     public Pacient() {
 
     }
 
-    public Pacient(String first_name, String last_name, Long numUtente, int age, char gender, float weight, float height, String email, String password) {
+    public Pacient(String name, Long numUtente, int age, char gender, float weight, float height, String email, String password) {
         this.numUtente = numUtente;
-        this.first_name = first_name;
-        this.last_name = last_name;
+        this.name = name;
         this.password = password;
         this.age = age;
         this.gender = gender;
@@ -54,7 +56,7 @@ public class Pacient {
         this.id = id;
     }
 
-    @Column(name = "numUtente", nullable = false)
+    @Column(name = "numUtente", nullable = false, unique = true)
     public Long getNumUtente() {
         return numUtente;
     }
@@ -62,20 +64,12 @@ public class Pacient {
         this.numUtente = numUtente;
     }
 
-    @Column(name = "first_name", nullable = false)
-    public String getFirstName() {
-        return first_name;
+    @Column(name = "name", nullable = false)
+    public String getName() {
+        return name;
     }
-    public void setFirstName(String firstName) {
-        this.first_name = firstName;
-    }
-
-    @Column(name = "last_name", nullable = false)
-    public String getLastName() {
-        return last_name;
-    }
-    public void setLastName(String lastName) {
-        this.last_name = lastName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Column(name = "password", nullable = false)
@@ -132,19 +126,26 @@ public class Pacient {
         this.conditions.remove(condition);
     }
 
-    public ArrayList<String> getMedication() {
+    public List<String> getMedication() {
         return medication;
     }
     
-    public ArrayList<String> getConditions() {
+    public List<String> getConditions() {
         return conditions;
+    }
+
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
+    }
+
+    public Doctor getDoctor() {
+        return doctor;
     }
 
     @Override
     public String toString() {
         return "Pacient [numUtente='" + getNumUtente() + "'" +
-            ", first_name='" + getFirstName() + "'" +
-            ", last_name='" + getLastName() + "'" +
+            ", name='" + getName() + "'" +
             ", age='" + getAge() + "'" +
             ", gender='" + getGender() + "'" +
             ", weight='" + getWeight() + "'" +
@@ -152,6 +153,7 @@ public class Pacient {
             ", medication='" + getMedication() + "'" +
             ", conditions='" + getConditions() + "'" +
             ", password='" + getPassword() + "'" +
+            ", doctor='" + getDoctor() + "'" +
             "]";
     }
 }

@@ -10,7 +10,8 @@ public class AppService {
     @Autowired
     private PacientRepository pacients;
 
-    public Pacient savePacient(Pacient pacient) {
+    public Pacient savePacient(Long medicalID, Pacient pacient) {
+        pacient.setDoctor(getByMedicalID(medicalID).get(0));
         return pacients.save(pacient);
     }
 
@@ -21,6 +22,14 @@ public class AppService {
     public String deletePacient(Long id) {
         pacients.deleteById(id);
         return "Pacient removed!!" + id;
+    }
+
+    public List<Pacient> getByUtente(Long numUtente) {
+        return pacients.findByNumUtente(numUtente);
+    }
+
+    public List<Pacient> getByPacientName(String name) {
+        return pacients.findByNameContainingIgnoreCase(name);
     }
 
     //Doctors
@@ -38,5 +47,13 @@ public class AppService {
     public String deleteDoctor(Long id) {
         doctors.deleteById(id);
         return "Doctor removed!!" + id;
+    }
+
+    public List<Doctor> getByMedicalID(Long medicalID) {
+        return doctors.findByMedicalID(medicalID);
+    }
+
+    public List<Doctor> getByDoctorName(String name) {
+        return doctors.findByNameContainingIgnoreCase(name);
     }
 }
