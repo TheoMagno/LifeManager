@@ -1,4 +1,6 @@
-FROM openjdk:8
-ADD target/demo-application.jar demo-application.jar
-EXPOSE 8086
-ENTRYPOINT [“java”, “-jar”, “demo-application.jar”]
+
+FROM openjdk:11
+COPY target/WebServer-0.0.1-SNAPSHOT.jar WebServer-0.0.1-SNAPSHOT.jar
+ENTRYPOINT ["java","-jar","/WebServer-0.0.1-SNAPSHOT.jar"]
+
+
