@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import LifeManager.WebServer.service.*;
 import LifeManager.WebServer.model.*;
 
+
 @RestController
 public class Controller {
     //Doctors
