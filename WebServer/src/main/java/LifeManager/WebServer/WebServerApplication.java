@@ -20,26 +20,26 @@ public class WebServerApplication {
 
 	@Bean
     public Queue queueHB() {
-        return new Queue("heart_beat");
+        return new Queue("heart_beat",true, false, false);
     }
 
     @Bean
     public Queue queueBT() {
-        return new Queue("body_temp");
+        return new Queue("body_temp",true, false, false);
     }
 
     @Bean
     public Queue queueSL() {
-        return new Queue("sugar_level");
+        return new Queue("sugar_level",false, false, false);
     }
 	@Bean
     public Queue queueOL() {
-        return new Queue("oxygen_level");
+        return new Queue("oxygen_level",true, false, false);
     }
 
     @Bean
     public Queue queueBP() {
-     	return new Queue("blood_pressure");
+     	return new Queue("blood_pressure",false, false, false);
     }
 //------------------------------------------------------------------------------------------------------
 
