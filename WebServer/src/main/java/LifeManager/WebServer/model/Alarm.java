@@ -21,15 +21,17 @@ public class Alarm {
     private Sensor sensor;
     private short state;
     private int value;
+    private char hilo;
 
     public Alarm(){
 
     }
 
-    public Alarm(Sensor sensor, short state, short value){
+    public Alarm(Sensor sensor, short state, short value, char hilo){
         this.sensor = sensor;
         this.state = state;
         this.value = value;
+        this.hilo = hilo;
     }
 
     public Sensor getSensor(){
@@ -54,5 +56,13 @@ public class Alarm {
     }
     public void setstate(Short state) {
         this.state = state;
+    }
+
+    @Column(name = "hilo", nullable = false)
+    public char getHilo() {
+        return this.hilo;
+    }
+    public void setHilo(char state) {
+        this.hilo = state;
     }
 }
