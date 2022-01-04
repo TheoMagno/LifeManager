@@ -9,6 +9,17 @@ services:
       MYSQL_USER: demo
       MYSQL_PASSWORD: password
       MYSQL_ROOT_PASSWORD: password
+    volumes:
+      - db-data:/var/lib/mysql
+  rabbit:
+    image: 'rabbitmq:3.6-management-alpine'
+    ports:
+      # The standard AMQP protocol port
+      - '5672:5672'
+      # HTTP management UI
+      - '15672:15672'
+    environment:
+      AMQP_URL: 'amqp://rabbitmq'
   backend:
     build:
       context: WebServer
@@ -17,3 +28,40 @@ services:
       - "8080:8080"
     depends_on:
       - db
+      - rabbit
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/demo
+      SPRING_DATASOURCE_USERNAME: demo
+      SPRING_DATASOURCE_PASSWORD: password
+      SPRING_RABBITMQ_HOST: rabbit
+    restart: on-failure
+  sensors:
+    build:
+      context: DataStream
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+      - rabbit
+      - backend
+    environment:
+      RABBITMQ_IP: rabbit
+      SERVER_IP: backend
+    restart: on-failure
+
+  client:   
+    build:
+      context: Prototype
+      dockerfile: Dockerfile
+    ports: 
+      - '80:80'
+    depends_on:
+      - db
+      - rabbit
+      - backend
+      - sensors
+    
+    environment:
+      SERVER_IP: backend
+    
+volumes:
+  db-data:
