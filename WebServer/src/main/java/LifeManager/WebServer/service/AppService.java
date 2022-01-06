@@ -59,4 +59,20 @@ public class AppService {
     public List<Doctor> getByDoctorName(String name) {
         return doctors.findByNameContainingIgnoreCase(name);
     }
+
+    //Alarms
+    @Autowired
+    private AlarmRepository alarms;
+
+    public List<Alarm> getAllAlarms() {
+        return alarms.findAll();
+    }
+
+    //Sensors
+    @Autowired
+    private SensorRepository sensors;
+
+    public List<Sensor> getAllSensors() {
+        return sensors.findAll();
+    }
 }

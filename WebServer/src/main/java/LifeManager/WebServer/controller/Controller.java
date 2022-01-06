@@ -63,4 +63,16 @@ public class Controller {
     public String deletePacien(@PathVariable(value = "id") Long id) {
         return service.deletePacient(id);
     }
+
+    //Sensors
+    @GetMapping("/sensors")
+    public List<Sensor> findSensors() {
+        return service.getAllSensors();
+    }
+
+    //Alarms
+    @GetMapping("/alarms")
+    public List<Alarm> findAlarms() {
+        return service.getAllAlarms();
+    }
 }
