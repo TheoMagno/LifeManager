@@ -20,7 +20,7 @@ public class WebServerApplication {
 
 	@Bean
     public Queue queueHB() {
-        return new Queue("heart_beat",true, false, false);
+        return new Queue("heartbeat",true, false, false);
     }
 
     @Bean

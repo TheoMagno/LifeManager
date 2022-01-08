@@ -11,15 +11,19 @@ services:
       MYSQL_ROOT_PASSWORD: password
     volumes:
       - db-data:/var/lib/mysql
+
+
+
   rabbit:
-    image: 'rabbitmq:3.6-management-alpine'
+    image: rabbitmq:3.9-management
     ports:
-      # The standard AMQP protocol port
+      # The standard port
       - '5672:5672'
       # HTTP management UI
       - '15672:15672'
     environment:
       AMQP_URL: 'amqp://rabbitmq'
+      
   backend:
     build:
       context: WebServer
@@ -35,6 +39,9 @@ services:
       SPRING_DATASOURCE_PASSWORD: password
       SPRING_RABBITMQ_HOST: rabbit
     restart: on-failure
+
+
+
   sensors:
     build:
       context: DataStream
@@ -44,8 +51,9 @@ services:
       - rabbit
       - backend
     environment:
-      RABBITMQ_IP: rabbit
       SERVER_IP: backend
+      RABBITMQ_IP: rabbit
+      
     restart: on-failure
 
   client:   
@@ -59,7 +67,8 @@ services:
       - rabbit
       - backend
       - sensors
-    
+    volumes: 
+      - ./src:/etc/share/nginx/html
     environment:
       SERVER_IP: backend
     
