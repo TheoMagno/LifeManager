@@ -18,6 +18,8 @@ public class WebServerApplication {
 		SpringApplication.run(WebServerApplication.class, args);
 	}
 
+   //-------------------------------------------------------------------------------------------------
+    
 	@Bean
     public Queue queueHB() {
         return new Queue("heartbeat",true, false, false);
@@ -25,7 +27,7 @@ public class WebServerApplication {
 
     @Bean
     public Queue queueBT() {
-        return new Queue("body_temp",true, false, false);
+        return new Queue("temperature",true, false, false);
     }
 
     @Bean
