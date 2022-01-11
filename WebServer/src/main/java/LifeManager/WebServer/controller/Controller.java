@@ -29,12 +29,15 @@ public class Controller {
     }
 
     @GetMapping("/doctors")
-    public List<Doctor> findDoctors(@RequestParam(required=false) Long medicalID, @RequestParam(required=false) String name) {
+    public List<Doctor> findDoctors(@RequestParam(required=false) Long medicalID, @RequestParam(required=false) String name, @RequestParam(required = false) String speciality) {
         if (medicalID != null) {
             return service.getByMedicalID(medicalID);
         }
         else if (name != null) {
             return service.getByDoctorName(name);
+        }
+        else if (speciality != null) {
+            return service.getBySpeciality(speciality);
         }
         return service.getAllDoctors();
     }
@@ -42,6 +45,11 @@ public class Controller {
     @DeleteMapping("/doctors/{id}")
     public String deleteDoctor(@PathVariable(value = "id") Long id) {
         return service.deleteDoctor(id);
+    }
+
+    @GetMapping("/doctors/types")
+    public List<String> getSpecialization() {
+        return service.getSpecializations();
     }
 
     //Pacients

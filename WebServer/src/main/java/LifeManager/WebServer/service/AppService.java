@@ -3,8 +3,6 @@ package LifeManager.WebServer.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
-
-
 import LifeManager.WebServer.model.*;
 import LifeManager.WebServer.repository.*;
 @Service
@@ -58,6 +56,14 @@ public class AppService {
 
     public List<Doctor> getByDoctorName(String name) {
         return doctors.findByNameContainingIgnoreCase(name);
+    }
+
+    public List<String> getSpecializations() {
+        return doctors.findSpecializations();
+    }
+
+    public List<Doctor> getBySpeciality(String speciality) {
+        return doctors.findBySpeciality(speciality);
     }
 
     //Alarms
