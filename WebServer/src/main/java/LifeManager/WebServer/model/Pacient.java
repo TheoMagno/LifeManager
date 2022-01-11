@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +33,8 @@ public class Pacient {
     @ManyToOne
     @JoinColumn(name="doctor")
     private Doctor doctor;
+    @OneToMany(mappedBy="pacient", orphanRemoval = true)
+    private List<Sensor> sensors;
 
     public Pacient() {
 
@@ -47,6 +50,7 @@ public class Pacient {
         this.height = height;
         this.medication = new ArrayList<String>();
         this.conditions = new ArrayList<String>();
+        this.sensors = new ArrayList<Sensor>();
     }
 
     public Long getId() {
