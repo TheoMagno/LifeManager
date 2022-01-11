@@ -24,6 +24,7 @@ services:
     environment:
       AMQP_URL: 'amqp://rabbitmq'
       
+      
   backend:
     build:
       context: WebServer
@@ -51,8 +52,8 @@ services:
       - rabbit
       - backend
     environment:
-      SERVER_IP: backend
       RABBITMQ_IP: rabbit
+      SERVER_IP: backend
       
     restart: on-failure
 
