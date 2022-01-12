@@ -52,6 +52,7 @@ services:
       - rabbit
       - backend
     environment:
+      SPRING_RABBITMQ_HOST: rabbit
       RABBITMQ_IP: rabbit
       SERVER_IP: backend
       

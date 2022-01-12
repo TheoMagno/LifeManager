@@ -10,38 +10,46 @@ import org.springframework.amqp.core.DirectExchange;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 @SpringBootApplication
 @EnableRabbit
 public class WebServerApplication {
-
+    private static final Logger logger = LogManager.getLogger(WebServerApplication.class);
+  
 	public static void main(String[] args) {
+        
 		SpringApplication.run(WebServerApplication.class, args);
+        System.out.println("MAin class");
 	}
 
    //-------------------------------------------------------------------------------------------------
     
 	@Bean
     public Queue queueHB() {
-        return new Queue("heartbeat",true, false, false);
+        //return new Queue("heartbeat",true, false, false);
+       
+        return new Queue("heartbeat");
     }
 
     @Bean
     public Queue queueBT() {
-        return new Queue("temperature",true, false, false);
+        return new Queue("temperature");
     }
 
     @Bean
     public Queue queueSL() {
-        return new Queue("sugar_level",false, false, false);
+        return new Queue("sugar_level");
     }
 	@Bean
     public Queue queueOL() {
-        return new Queue("oxygen_level",true, false, false);
+        return new Queue("oxygen_level");
     }
 
     @Bean
     public Queue queueBP() {
-     	return new Queue("blood_pressure",false, false, false);
+     	return new Queue("blood_pressure");
     }
 //------------------------------------------------------------------------------------------------------
 
