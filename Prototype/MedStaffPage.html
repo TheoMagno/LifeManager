@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html>
+    <meta charset="UTF-8"
     <head>
         <!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
         <title> Medical Staff Page</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+       
         <style>
             body {font-family: Arial, Helvetica, sans-serif;}
             form {border: 3px solid #f1f1f1;}
@@ -140,7 +142,7 @@
                         <a href="#"><i class="fa fa-dribbble"></i></a>
                         <p>
                             <form action="PacientProfileMed.html">
-                                <button type="submit">See More</button>
+                                <button type="submit" >See More</button>
                             </form>
                         </p>
                     </div>
@@ -225,7 +227,18 @@
         </div>
 
 
-
-
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>             
+            $(document).ready(function() {                 
+                $.ajax({                     
+                    url: 'http://localhost:8080/doctors',                     
+                    beforeSend: function(xhr) {                         
+                        xhr.setRequestHeader("Authorization", "Bearer 6QXNMEMFHNY4FJ5ELNFMP5KRW52WFXN5")                     
+                        }, success: function(data){                         
+                            console.log(data);                     
+                        }                 
+                    })             
+                });         
+        </script>
     </body>
 </html>

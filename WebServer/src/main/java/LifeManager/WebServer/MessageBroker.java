@@ -13,9 +13,12 @@ import java.util.LinkedList;
 import java.util.Optional;
 import java.util.Queue;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 @Component
 public class MessageBroker {
-
+    
     private HashMap<Integer, Queue> temperature = new HashMap<Integer, Queue>();
     private HashMap<Integer, Queue> sugar = new HashMap<Integer, Queue>();
     private HashMap<Integer, Queue> oxygen = new HashMap<Integer, Queue>();
@@ -27,8 +30,12 @@ public class MessageBroker {
 
     @RabbitListener(queues = "heartbeat")
     public void receive_heart_beat(String in) throws InterruptedException, ResourceNotFoundException {
+       
         JSONObject jo = new JSONObject(in);
-        double heart_beat = jo.getDouble("hearbeat");
+        double heart_beat = jo.getDouble("heartbeat");
+
+        System.out.println("HEART" + heart_beat);
+
         int s_id = jo.getInt("id");
         if(heartbeat.containsKey(s_id)){
             Queue q = heartbeat.get(s_id);
@@ -50,6 +57,7 @@ public class MessageBroker {
         JSONObject jo = new JSONObject(in);
         double sugar_level = jo.getDouble("sugar");
         int s_id = jo.getInt("id");
+        System.out.println("SUGAR" + sugar_level);
         if(sugar.containsKey(s_id)){
             Queue q = sugar.get(s_id);
             if (q.size() > 30) {
@@ -71,6 +79,8 @@ public class MessageBroker {
         double systolic = jo.getDouble("systolic");
         double diastolic = jo.getDouble("diastolic");
         int s_id = jo.getInt("id");
+        System.out.println("BP_SYS" + systolic);
+        System.out.println("BP_DIAS" + diastolic);
         if(blood_pressure.containsKey(s_id)){
             Queue q = blood_pressure.get(s_id);
             if (q.size() > 30) {
@@ -92,6 +102,7 @@ public class MessageBroker {
     public void receive_body_temp(String in) throws InterruptedException, ResourceNotFoundException {
         JSONObject jo = new JSONObject(in);
         double body_temp = jo.getDouble("temperature");
+        System.out.println("temp " + body_temp);
         int s_id = jo.getInt("id");
         if(temperature.containsKey(s_id)){
             Queue q = temperature.get(s_id);
@@ -110,9 +121,11 @@ public class MessageBroker {
 
     @RabbitListener(queues = "oxygen_level")
     public void receive_oxygen_level(String in) throws InterruptedException, ResourceNotFoundException {
+        
     }
 
     public  Queue getBlood_pressure(Integer id) {
+        //Given a sensor id retrieve blood pressure
         return blood_pressure.get(id);
     }
 
