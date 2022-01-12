@@ -1,6 +1,6 @@
 package LifeManager.WebServer;
 
-import LifeManager.WebServer.model.Pacient;
+import LifeManager.WebServer.model.Patient;
 import LifeManager.WebServer.model.Sensor;
 import LifeManager.WebServer.repository.SensorRepository;
 import org.apache.velocity.exception.ResourceNotFoundException;

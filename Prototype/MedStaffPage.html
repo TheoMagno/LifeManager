@@ -3,11 +3,14 @@
     <meta charset="UTF-8"
     <head>
         <!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
+        <meta charset="UTF-8">
         <title> Medical Staff Page</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-       
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
         <style>
             body {font-family: Arial, Helvetica, sans-serif;}
             form {border: 3px solid #f1f1f1;}
@@ -105,6 +108,15 @@
             button:hover, a:hover {
                 opacity: 0.7;
             }
+
+            #footer {
+                position: fixed;
+                left: 50%;
+                bottom: 0px;
+                transform: translate(-50%, -50%);
+                margin: 0 auto;
+            }
+
             </style>
     </head>
     <body>
@@ -131,114 +143,41 @@
         </nav>
 
  
-        <div class="container" style="text-align: center; margin-top: 2%; margin-bottom: 2%;">
-            <h1 style="text-align: center; margin-top: 2%;  font-family: 'Raleway',sans-serif; font-size: 45px; font-weight: 500; line-height: 48px;">Psicology</h1>
 
-            <div class="row">
-                <div class="column">
-                    <div class="card">
-                        <h1>Tiago Pereira Silva</h1>
-                        <p class="age">... anos</p>
-                        <a href="#"><i class="fa fa-dribbble"></i></a>
-                        <p>
-                            <form action="PacientProfileMed.html">
-                                <button type="submit" >See More</button>
-                            </form>
-                        </p>
-                    </div>
-                </div>
-                <div class="column">
-                    <div class="card">
-                        <h1>João Silva Cardoso</h1>
-                        <p class="age">... anos</p>
-                        <a href="#"><i class="fa fa-dribbble"></i></a>
-                        <p>
-                            <form action="PacientProfileMed.html">
-                                <button type="submit">See More</button>
-                            </form>
-                        </p>
-                    </div>
-                </div>
-                <div class="column">
-                    <div class="card">
-                        <h1>João Silva Cardoso</h1>
-                        <p class="age">... anos</p>
-                        <a href="#"><i class="fa fa-dribbble"></i></a>
-                        <p>
-                            <form action="PacientProfileMed.html">
-                                <button type="submit">See More</button>
-                            </form>
-                        </p>
-                    </div>
-                </div>
-              </div> 
+        <div class="container" style="text-align: center; margin-top: 2%; margin-bottom: 2%;" id="content"></div>
 
-        </div>
 
-        <div class="container" style="text-align: center; margin-top: 2%; margin-bottom: 2%;">
-            <h1 style="text-align: center; margin-top: 2%;  font-family: 'Raleway',sans-serif; font-size: 45px; font-weight: 500; line-height: 48px;">Cardiology</h1>
-
-            <div class="row">
-                <div class="column">
-                    <div class="card">
-                        <h1>Tiago Pereira Silva</h1>
-                        <p class="age">... anos</p>
-                        <a href="#"><i class="fa fa-dribbble"></i></a>
-                        <p>
-                            <form action="PacientProfileMed.html">
-                                <button type="submit">See More</button>
-                            </form>
-                        </p>
-                    </div>
-                </div>
-                <div class="column">
-                    <div class="card">
-                        <h1>João Silva Cardoso</h1>
-                        <p class="age">... anos</p>
-                        <a href="#"><i class="fa fa-dribbble"></i></a>
-                        <p>
-                            <form action="PacientProfileMed.html">
-                                <button type="submit">See More</button>
-                            </form>
-                        </p>
-                    </div>
-                </div>
-                <div class="column">
-                    <div class="card">
-                        <h1>João Silva Cardoso</h1>
-                        <p class="age">... anos</p>
-                        <a href="#"><i class="fa fa-dribbble"></i></a>
-                        <p>
-                            <form action="PacientProfileMed.html">
-                                <button type="submit">See More</button>
-                            </form>
-                        </p>
-                    </div>
-                </div>
-               
-              </div> 
-        </div>
-
-        <div class="container">
-            
+        <div class="container" id='footer'>
             <form action="Regist/PacientsRegisterByMedStaff.html">
                 <button type="submit">Add Pacient</button>
             </form>
         </div>
 
+        <script>
+            $(document).ready(function() {
+                $.ajax({
+                    url: 'http://localhost:8080/doctors/types',
+                    beforeSend: function(xhr) {
+                        xhr.setRequestHeader("Authorization", "Bearer 6QXNMEMFHNY4FJ5ELNFMP5KRW52WFXN5")
+                    }, success: function(data){
+                        console.log(data);
+                        data.forEach(element => {
+                            document.getElementById("content").innerHTML += '<h1 style="text-align: center; margin-top: 2%;  font-family: "Raleway",sans-serif; font-size: 45px; font-weight: 500; line-height: 48px;">'+element+'</h1>'+'<div class="row" id="'+element+'"> </div>';
+                            $.ajax({
+                                url: 'http://localhost:8080/patients?speciality='+element,
+                                beforeSend: function(xhr) {
+                                    xhr.setRequestHeader("Authorization", "Bearer 6QXNMEMFHNY4FJ5ELNFMP5KRW52WFXN5")
+                                }, success: function(data2){
+                                    data2.forEach(ele => {
+                                        document.getElementById(element).innerHTML += '<div class="column"><div class="card"><h1>'+ele.name+'</h1><p class="age">'+ele.age+' anos</p><a href="#"><i class="fa fa-dribbble"></i></a><p><a href="PacientProfileMed.html?'+ele.id+'"><button type="submit">See More</button></a></p></div></div>'
+                                    })
+                                }
+                            });
+                        });
+                    }
+                })
+            });
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script>             
-            $(document).ready(function() {                 
-                $.ajax({                     
-                    url: 'http://localhost:8080/doctors',                     
-                    beforeSend: function(xhr) {                         
-                        xhr.setRequestHeader("Authorization", "Bearer 6QXNMEMFHNY4FJ5ELNFMP5KRW52WFXN5")                     
-                        }, success: function(data){                         
-                            console.log(data);                     
-                        }                 
-                    })             
-                });         
         </script>
     </body>
 </html>

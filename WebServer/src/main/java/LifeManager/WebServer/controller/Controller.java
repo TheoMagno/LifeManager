@@ -1,8 +1,11 @@
 package LifeManager.WebServer.controller;
 
 import java.util.List;
+import java.util.Optional;
+
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +19,7 @@ import LifeManager.WebServer.model.*;
 
 
 @RestController
+@CrossOrigin
 public class Controller {
     //Doctors
     @Autowired
@@ -27,12 +31,15 @@ public class Controller {
     }
 
     @GetMapping("/doctors")
-    public List<Doctor> findDoctors(@RequestParam(required=false) Long medicalID, @RequestParam(required=false) String name) {
+    public List<Doctor> findDoctors(@RequestParam(required=false) Long medicalID, @RequestParam(required=false) String name, @RequestParam(required = false) String speciality) {
         if (medicalID != null) {
             return service.getByMedicalID(medicalID);
         }
         else if (name != null) {
             return service.getByDoctorName(name);
+        }
+        else if (speciality != null) {
+            return service.getDoctorBySpeciality(speciality);
         }
         return service.getAllDoctors();
     }
@@ -42,26 +49,39 @@ public class Controller {
         return service.deleteDoctor(id);
     }
 
-    //Pacients
-    @PostMapping("/pacients/{id}")
-    public Pacient addPacient(@PathVariable(value = "id") Long medicalID, @Valid @RequestBody Pacient pacient) {
-        return service.savePacient(medicalID, pacient);
+    @GetMapping("/doctors/types")
+    public List<String> getSpecialization() {
+        return service.getDoctorSpecializations();
     }
 
-    @GetMapping("/pacients")
-    public List<Pacient> findPacients(@RequestParam(required=false) Long numUtente, @RequestParam(required=false) String name) {
+    //Patients
+    @PostMapping("/doctors/{id}/patients")
+    public Patient addPatient(@PathVariable(value = "id") Long medicalID, @Valid @RequestBody Patient patient) {
+        return service.savePatient(medicalID, patient);
+    }
+
+    @GetMapping("/patients")
+    public List<Patient> findPatients(@RequestParam(required=false) Long numUtente, @RequestParam(required=false) String name, @RequestParam(required = false) String speciality) {
         if (numUtente != null) {
             return service.getByUtente(numUtente);
         }
         else if (name != null) {
-            return service.getByPacientName(name);
+            return service.getByPatientName(name);
         }
-        return service.getAllPacients();
+        else if (speciality != null) {
+            return service.getPatientByDoctorSpeciality(speciality);
+        }
+        return service.getAllPatients();
     }
 
-    @DeleteMapping("/pacients/{id}")
-    public String deletePacien(@PathVariable(value = "id") Long id) {
-        return service.deletePacient(id);
+    @DeleteMapping("/patients/{id}")
+    public String deletePatient(@PathVariable(value = "id") Long id) {
+        return service.deletePatient(id);
+    }
+
+    @GetMapping("/patients/{id}")
+    public Optional<Patient> getPatient(@PathVariable(value = "id") Long id) {
+        return service.getPatientById(id);
     }
 
     //Sensors

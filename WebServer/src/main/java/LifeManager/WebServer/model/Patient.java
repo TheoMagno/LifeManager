@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,8 +14,8 @@ import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 
 @Entity
-@Table(name = "pacient")
-public class Pacient {
+@Table(name = "patient")
+public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -32,12 +33,14 @@ public class Pacient {
     @ManyToOne
     @JoinColumn(name="doctor")
     private Doctor doctor;
+    @OneToMany(mappedBy="patient", orphanRemoval = true)
+    private List<Sensor> sensors;
 
-    public Pacient() {
+    public Patient() {
 
     }
 
-    public Pacient(String name, Long numUtente, int age, char gender, float weight, float height, String email, String password) {
+    public Patient(String name, Long numUtente, int age, char gender, float weight, float height, String email, String password) {
         this.numUtente = numUtente;
         this.name = name;
         this.password = password;
@@ -47,6 +50,7 @@ public class Pacient {
         this.height = height;
         this.medication = new ArrayList<String>();
         this.conditions = new ArrayList<String>();
+        this.sensors = new ArrayList<Sensor>();
     }
 
     public Long getId() {
@@ -144,7 +148,7 @@ public class Pacient {
 
     @Override
     public String toString() {
-        return "Pacient [numUtente='" + getNumUtente() + "'" +
+        return "Patient [numUtente='" + getNumUtente() + "'" +
             ", name='" + getName() + "'" +
             ", age='" + getAge() + "'" +
             ", gender='" + getGender() + "'" +
