@@ -27,15 +27,15 @@ Notes:
 class Generator:
 
     def __init__(self):
-        time.sleep(1000)
-        
+        #time.sleep(1000)
+        time.sleep(5)
         self.sensor_id = 1
-        self.connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
+        self.connection = pika.BlockingConnection(pika.ConnectionParameters('localhost',port=5672))
         self.channel = self.connection.channel()
-        self.channel.queue_declare(queue='heartbeat')
-        self.channel.queue_declare(queue='blood_pressure')
-        self.channel.queue_declare(queue='temperature')
-        self.channel.queue_declare(queue='sugar_level')
+        self.channel.queue_declare(queue='heartbeat',durable=True)
+        self.channel.queue_declare(queue='blood_pressure',durable=True)
+        self.channel.queue_declare(queue='temperature',durable=True)
+        self.channel.queue_declare(queue='sugar_level',durable=True)
     
 
     async def gen_heart_beats(self):
@@ -46,7 +46,11 @@ class Generator:
             hb = np.random.randn() * sigma + mu
             json_text = {'id': self.sensor_id, 'heartbeat': int(hb)}
             print(json_text)
-            self.channel.basic_publish(exchange='', routing_key='heartbeat', body=json.dumps(json_text))
+            
+            self.channel.basic_publish(exchange='logs', routing_key='heartbeat', body=json.dumps(json_text), properties=pika.BasicProperties(
+        delivery_mode=pika.spec.PERSISTENT_DELIVERY_MODE,
+    ))
+            #routing_key diz qual a queue que está a enviar
             await asyncio.sleep(5)
 
 
@@ -59,8 +63,11 @@ class Generator:
             systolic = np.random.randn() * sigma + systolic_mu
             diastolic = np.random.randn() * sigma + diastolic_mu        
             json_text = {'id': self.sensor_id, 'systolic': round(float(systolic),2), 'diastolic': round(float(diastolic),2)}
-            print(json_text)
-            self.channel.basic_publish(exchange='', routing_key='blood_pressure', body=json.dumps(json_text))
+            print(json_text, file=sys.stderr)
+            
+            self.channel.basic_publish(exchange='logs', routing_key='blood_pressure', body=json.dumps(json_text),properties=pika.BasicProperties(
+        delivery_mode=pika.spec.PERSISTENT_DELIVERY_MODE,
+    ))
             await asyncio.sleep(5)
 
     
@@ -72,7 +79,10 @@ class Generator:
             temperature = np.random.randn() * sigma + mu       
             json_text = {'id': self.sensor_id, 'temperature': round(float(temperature),2)}
             print(json_text)
-            self.channel.basic_publish(exchange='', routing_key='temperature', body=json.dumps(json_text))
+            
+            self.channel.basic_publish(exchange='logs', routing_key='temperature', body=json.dumps(json_text),properties=pika.BasicProperties(
+        delivery_mode=pika.spec.PERSISTENT_DELIVERY_MODE,
+    ))
             await asyncio.sleep(5)
 
     
@@ -84,7 +94,10 @@ class Generator:
             sugar = np.random.randn() * sigma + mu
             json_text = {'id': self.sensor_id, 'sugar': float(sugar)}
             print(json_text)
-            self.channel.basic_publish(exchange='', routing_key='sugar_level', body=json.dumps(json_text))
+            
+            self.channel.basic_publish(exchange='logs', routing_key='sugar_level', body=json.dumps(json_text),properties=pika.BasicProperties(
+        delivery_mode=pika.spec.PERSISTENT_DELIVERY_MODE,
+    ))
             await asyncio.sleep(5)
 
 
