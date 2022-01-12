@@ -27,7 +27,7 @@ Notes:
 class Generator:
 
     def __init__(self):
-        time.sleep(1000)
+        time.sleep(5)
         
         self.sensor_id = 1
         self.connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
