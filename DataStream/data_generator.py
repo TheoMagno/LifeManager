@@ -47,7 +47,7 @@ class Generator:
             json_text = {'id': self.sensor_id, 'heartbeat': int(hb)}
             print(json_text)
             
-            self.channel.basic_publish(exchange='logs', routing_key='heartbeat', body=json.dumps(json_text), properties=pika.BasicProperties(
+            self.channel.basic_publish(exchange='', routing_key='heartbeat', body=json.dumps(json_text), properties=pika.BasicProperties(
         delivery_mode=pika.spec.PERSISTENT_DELIVERY_MODE,
     ))
             #routing_key diz qual a queue que está a enviar
@@ -65,7 +65,7 @@ class Generator:
             json_text = {'id': self.sensor_id, 'systolic': round(float(systolic),2), 'diastolic': round(float(diastolic),2)}
             print(json_text, file=sys.stderr)
             
-            self.channel.basic_publish(exchange='logs', routing_key='blood_pressure', body=json.dumps(json_text),properties=pika.BasicProperties(
+            self.channel.basic_publish(exchange='', routing_key='blood_pressure', body=json.dumps(json_text),properties=pika.BasicProperties(
         delivery_mode=pika.spec.PERSISTENT_DELIVERY_MODE,
     ))
             await asyncio.sleep(5)
@@ -80,7 +80,7 @@ class Generator:
             json_text = {'id': self.sensor_id, 'temperature': round(float(temperature),2)}
             print(json_text)
             
-            self.channel.basic_publish(exchange='logs', routing_key='temperature', body=json.dumps(json_text),properties=pika.BasicProperties(
+            self.channel.basic_publish(exchange='', routing_key='temperature', body=json.dumps(json_text),properties=pika.BasicProperties(
         delivery_mode=pika.spec.PERSISTENT_DELIVERY_MODE,
     ))
             await asyncio.sleep(5)
@@ -95,7 +95,7 @@ class Generator:
             json_text = {'id': self.sensor_id, 'sugar': float(sugar)}
             print(json_text)
             
-            self.channel.basic_publish(exchange='logs', routing_key='sugar_level', body=json.dumps(json_text),properties=pika.BasicProperties(
+            self.channel.basic_publish(exchange='', routing_key='sugar_level', body=json.dumps(json_text),properties=pika.BasicProperties(
         delivery_mode=pika.spec.PERSISTENT_DELIVERY_MODE,
     ))
             await asyncio.sleep(5)
