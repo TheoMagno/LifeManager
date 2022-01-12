@@ -18,8 +18,8 @@ public class Sensor {
 
     //Patient Id
     @ManyToOne
-    @JoinColumn(name = "pacient")
-    private Pacient pacient;
+    @JoinColumn(name = "patient")
+    private Patient patient;
     private short state;
     private short type;
 
@@ -32,12 +32,12 @@ public class Sensor {
         this.type = type;
     }
 
-    public void setPacient(Pacient pacient) {
-        this.pacient = pacient;
+    public void setPatient(Patient patient) {
+        this.patient = patient;
     }
 
-    public Pacient getPacient(){
-        return this.pacient;
+    public Patient getPatient(){
+        return this.patient;
     }
     public Long getId(){
         return this.sensor_id;

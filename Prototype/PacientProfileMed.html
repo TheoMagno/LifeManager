@@ -2,10 +2,12 @@
 <html>
     <head>
         <!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
+        <meta charset="UTF-8">
         <title> Pacient Register</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <style>
             body {font-family: Arial, Helvetica, sans-serif;}
             form {border: 3px solid #f1f1f1;}
@@ -138,37 +140,37 @@
                       <div class="row">
                          <div class="col-6 col-md-4">
                             <b>Name: </b>
-                            <em id ="userFullName"></em>
+                            <em id ="name"></em>
                          </div>
                          <div class="col-6 col-md-4">
                             <b>Age: </b>
-                            <em id="userAge"></em>
+                            <em id="age"></em>
                          </div>
                          <div class="col-6 col-md-4">
                             <b>Gender:</b>
-                            <em id="userGender"></em>
+                            <em id="gender"></em>
                          </div>
                       </div>
                       <div class="row">
                          <div class="col-6 col-md-4">
                             <b>Weight: </b>
-                            <em id="userWeight"></em>
+                            <em id="weight"></em>
                             <em> kg</em>
                          </div>
                          <div class="col-6 col-md-4">
-                            <b>Height: </b>
-                            <em id="userHeight"></em>
+                            <b> Height: </b>
+                            <em id="height"></em>
                             <em> m</em>
                          </div>
                       </div>
                       <h1></h1>
                       <h1></h1>
                       <div class="row">
-                         <div class="col-md-6">
-                            <p><b>Diseases and Conditions: </b></p>
+                         <div class="col-md-6" id = "Conditions">
+                            <p ><b>Diseases and Conditions: </b></p>
                             <ul id="userConditionList"></ul>  
                          </div>
-                         <div class="col-md-6">
+                         <div class="col-md-6" id = "Medications">
                             <p><b>Medication: </b></p>
                             <ul id="userMedicationList"></ul>
                          </div>
@@ -248,5 +250,28 @@
                </div>
             </div>
             </div>
+            <script>
+               $(document).ready(function() {
+                  var id = location.search.substring(1);
+                  $.ajax({
+                     url: 'http://localhost:8080/patients/'+id,
+                     beforeSend: function(xhr) {
+                        xhr.setRequestHeader("Authorization", "Bearer 6QXNMEMFHNY4FJ5ELNFMP5KRW52WFXN5")
+                     }, success: function(data){
+                        document.getElementById("name").innerText = data.name;
+                        document.getElementById("age").innerText = data.age;
+                        document.getElementById("gender").innerText = data.gender;
+                        document.getElementById("weight").innerText = data.weight;
+                        document.getElementById("height").innerText = data.height;
+                        if (data.conditions == "") {
+                           document.getElementById("Conditions").style.visibility = 'collapse';
+                        }
+                        if (data.medication == "") {
+                           document.getElementById("Medications").style.visibility = 'collapse';
+                        }
+                     }
+                  });
+               });
+            </script>
         </body>
     </html>

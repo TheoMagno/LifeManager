@@ -3,34 +3,44 @@ package LifeManager.WebServer.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
+
 import LifeManager.WebServer.model.*;
 import LifeManager.WebServer.repository.*;
 @Service
 public class AppService {
-    //Pacients
+    //Patients
     @Autowired
-    private PacientRepository pacients;
+    private PatientRepository patients;
 
-    public Pacient savePacient(Long medicalID, Pacient pacient) {
-        pacient.setDoctor(getByMedicalID(medicalID).get(0));
-        return pacients.save(pacient);
+    public Patient savePatient(Long medicalID, Patient patient) {
+        patient.setDoctor(getByMedicalID(medicalID).get(0));
+        return patients.save(patient);
     }
 
-    public List<Pacient> getAllPacients() {
-        return pacients.findAll();
+    public List<Patient> getAllPatients() {
+        return patients.findAll();
     }
 
-    public String deletePacient(Long id) {
-        pacients.deleteById(id);
-        return "Pacient removed!!" + id;
+    public String deletePatient(Long id) {
+        patients.deleteById(id);
+        return "Patient removed!!" + id;
     }
 
-    public List<Pacient> getByUtente(Long numUtente) {
-        return pacients.findByNumUtente(numUtente);
+    public List<Patient> getByUtente(Long numUtente) {
+        return patients.findByNumUtente(numUtente);
     }
 
-    public List<Pacient> getByPacientName(String name) {
-        return pacients.findByNameContainingIgnoreCase(name);
+    public List<Patient> getByPatientName(String name) {
+        return patients.findByNameContainingIgnoreCase(name);
+    }
+
+    public List<Patient> getPatientByDoctorSpeciality(String speciality) {
+        return patients.findByDoctorSpeciality(speciality);
+    }
+
+    public Optional<Patient> getPatientById(Long id) {
+        return patients.findById(id);
     }
 
     //Doctors
@@ -58,11 +68,11 @@ public class AppService {
         return doctors.findByNameContainingIgnoreCase(name);
     }
 
-    public List<String> getSpecializations() {
+    public List<String> getDoctorSpecializations() {
         return doctors.findSpecializations();
     }
 
-    public List<Doctor> getBySpeciality(String speciality) {
+    public List<Doctor> getDoctorBySpeciality(String speciality) {
         return doctors.findBySpeciality(speciality);
     }
 

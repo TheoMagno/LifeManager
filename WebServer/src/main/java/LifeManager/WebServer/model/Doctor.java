@@ -26,7 +26,7 @@ public class Doctor {
     private String email;
     private String workplace;
     @OneToMany(mappedBy="doctor", orphanRemoval = true)
-    private List<Pacient> pacients;
+    private List<Patient> patients;
 
     public Doctor() {
 
@@ -41,7 +41,7 @@ public class Doctor {
         this.gender = gender;
         this.email = email;
         this.workplace = workplace;
-        this.pacients = new ArrayList<Pacient>();
+        this.patients = new ArrayList<Patient>();
     }
 
     public Long getId() {
