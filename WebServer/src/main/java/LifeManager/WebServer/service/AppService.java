@@ -55,9 +55,10 @@ public class AppService {
         return doctors.findAll();
     }
 
-    public String deleteDoctor(Long id) {
-        doctors.deleteById(id);
-        return "Doctor removed!!" + id;
+    public String deleteDoctor(Long medicalId) {
+        Doctor d = getByMedicalID(medicalId).get(0);
+        doctors.deleteById(d.getId());
+        return "Doctor removed!!" + medicalId;
     }
 
     public List<Doctor> getByMedicalID(Long medicalID) {

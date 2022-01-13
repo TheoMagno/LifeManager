@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html>
+  <meta charset="UTF-8">
     <head>
         <!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
         <title>Medical Staff Login</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <style>
             body {font-family: Arial, Helvetica, sans-serif;}
             form {border: 3px solid #f1f1f1;}
@@ -69,6 +71,9 @@
             }
             </style>
             <script>
+              $(document).ready(function() {
+                console.log(sessionStorage.getItem("medicalID"));
+              });
               function login()
                 {
                   var uid = document.getElementById("medicalid").value;
@@ -92,9 +97,25 @@
                   }
                   else
                   {
-                    alert('Thank You for Login & You are Redirecting to LifeManager Website');
-                    //Redirecting to other page or webste code or you can set your own html page.
-                    window.location = "../MedStaffPage.html";
+                    $.ajax({
+                      url: 'http://localhost:8080/login?medicalID='+uid+'&password='+pwd,
+                      beforeSend: function(xhr) {
+                        xhr.setRequestHeader("Authorization", "Bearer 6QXNMEMFHNY4FJ5ELNFMP5KRW52WFXN5")
+                      }, success: function(data){
+                        if (data==true) {
+                          alert('Thank You for Login & You are Redirecting to LifeManager Website');
+                          //Redirecting to other page or webste code or you can set your own html page.
+                          localStorage.setItem("medicalID", uid);
+                          console.log(localStorage.getItem("medicalID"));
+                          setTimeout(() => {  window.location.href = "../MedStaffPage.html"; }, 2000);
+                          //window.location = "../MedStaffPage.html";
+                        }
+                        else {
+                          alert('Invalid credentials! Please Try Again.');
+                          clearFunc();
+                        }
+                      }
+                    });
                   }
                 }
                 //Reset Inputfield code.
@@ -158,8 +179,6 @@
             </table>
           </div>
        
-
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     </body>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+    <meta charset="UTF-8">
     <head>
         <!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
         <title>Medical Staff Remove</title>
@@ -100,17 +101,25 @@
               <div class="container">
 
                 <label for="uID"><b>Medical ID</b></label>
-                <input type="text" placeholder="Enter Medical ID" name="uID" required>
+                <input type="text" placeholder="Enter Medical ID" name="uID" required id="uid">
 
-                <button onclick="myFunction()">Remove</button>
+                <button onclick=myFunction()>Remove</button>
               </div>
 
-         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
         <script>
           function myFunction() {
-            alert("Medical Staff successfully removed!!");
+            $.ajax({
+                      url: 'http://localhost:8080/doctors/'+document.getElementById("uid").value,
+                      type: "DELETE"
+                      , success: function(data){
+                        alert("Medical Staff successfully removed!!") 
+                      }, error: function(result){ 
+                        console.log('There are no Medical Staff with this id!!') 
+                    }
+            });
           }
           </script>
 
