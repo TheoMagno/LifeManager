@@ -2,6 +2,7 @@ package LifeManager.WebServer;
 
 import LifeManager.WebServer.model.Patient;
 import LifeManager.WebServer.model.Sensor;
+import LifeManager.WebServer.controller.*;
 import LifeManager.WebServer.repository.SensorRepository;
 import org.apache.velocity.exception.ResourceNotFoundException;
 import org.json.JSONObject;
@@ -21,12 +22,15 @@ public class MessageBroker {
     
     private HashMap<Integer, Queue> temperature = new HashMap<Integer, Queue>();
     private HashMap<Integer, Queue> sugar = new HashMap<Integer, Queue>();
-    private HashMap<Integer, Queue> oxygen = new HashMap<Integer, Queue>();
+    private HashMap<Integer, Queue> oxygenhm = new HashMap<Integer, Queue>();
     private HashMap<Integer, Queue> heartbeat = new HashMap<Integer, Queue>();
     private HashMap<Integer, Queue> blood_pressure = new HashMap<Integer, Queue>();
 
     @Autowired
     public SensorRepository sensorRepository;
+
+    @Autowired
+    public Controller controller;
 
     @RabbitListener(queues = "heartbeat")
     public void receive_heart_beat(String in) throws InterruptedException, ResourceNotFoundException {
@@ -34,21 +38,32 @@ public class MessageBroker {
         JSONObject jo = new JSONObject(in);
         double heart_beat = jo.getDouble("heartbeat");
 
-        System.out.println("HEART" + heart_beat);
+        int type = jo.getInt("type");
 
         int s_id = jo.getInt("id");
+        System.out.println(s_id);
+        System.out.println(heartbeat.containsKey(s_id));
+        System.out.println("---------------------------------------------");
         if(heartbeat.containsKey(s_id)){
+            
             Queue q = heartbeat.get(s_id);
             if (q.size() > 30) {
                 q.poll();
             }
             q.add(heart_beat);
-            sugar.replace(s_id,q);
+            //heartbeat.replace(s_id,q);
+           
+            //heartbeat will contain a key value pair defined as sensor_id : sensorqueue
+            //q will contain the last 30 values from the sensor
         }
         else{
             Queue queue = new LinkedList<String>();
+            //System.out.println("heart "+s_id);
+            System.out.println("I should only appear once.");
             queue.add(heart_beat);
-            sugar.put(s_id,queue);
+            heartbeat.put(s_id,queue);
+            //controller.addSensor(type);
+            
         }
     }
 
@@ -56,8 +71,12 @@ public class MessageBroker {
     public void receive_sugar_level(String in) throws InterruptedException, ResourceNotFoundException {
         JSONObject jo = new JSONObject(in);
         double sugar_level = jo.getDouble("sugar");
+
+        int type = jo.getInt("type");
+
         int s_id = jo.getInt("id");
-        System.out.println("SUGAR" + sugar_level);
+        
+       
         if(sugar.containsKey(s_id)){
             Queue q = sugar.get(s_id);
             if (q.size() > 30) {
@@ -70,6 +89,10 @@ public class MessageBroker {
             Queue queue = new LinkedList<String>();
             queue.add(sugar_level);
             sugar.put(s_id,queue);
+            //controller.addSensor(type);
+            //System.out.println("sugar "+s_id);
+            //sugar will contain the most recent value from the sensor
+            //q will contain the last 30 values from the sensor
         }
     }
 
@@ -78,9 +101,11 @@ public class MessageBroker {
         JSONObject jo = new JSONObject(in);
         double systolic = jo.getDouble("systolic");
         double diastolic = jo.getDouble("diastolic");
+
+        int type = jo.getInt("type");
+
         int s_id = jo.getInt("id");
-        System.out.println("BP_SYS" + systolic);
-        System.out.println("BP_DIAS" + diastolic);
+        
         if(blood_pressure.containsKey(s_id)){
             Queue q = blood_pressure.get(s_id);
             if (q.size() > 30) {
@@ -94,7 +119,11 @@ public class MessageBroker {
             Queue queue = new LinkedList<String[]>();
             double[] bp = {systolic,diastolic};
             queue.add(bp);
-            temperature.put(s_id,queue);
+            blood_pressure.put(s_id,queue);
+            //controller.addSensor(type);
+            //System.out.println("BP  "+s_id);
+            //blood_pressure will contain the most recent value from the sensor
+            //q will contain the last 30 values from the sensor
         }
     }
 
@@ -102,7 +131,9 @@ public class MessageBroker {
     public void receive_body_temp(String in) throws InterruptedException, ResourceNotFoundException {
         JSONObject jo = new JSONObject(in);
         double body_temp = jo.getDouble("temperature");
-        System.out.println("temp " + body_temp);
+
+        int type = jo.getInt("type");
+
         int s_id = jo.getInt("id");
         if(temperature.containsKey(s_id)){
             Queue q = temperature.get(s_id);
@@ -116,16 +147,39 @@ public class MessageBroker {
             Queue queue = new LinkedList<String>();
             queue.add(body_temp);
             temperature.put(s_id,queue);
+            //controller.addSensor(type);
+            //System.out.println("temp " + s_id);
+            //temperature will contain the most recent value from the sensor
+            //q will contain the last 30 values from the sensor
         }
     }
 
     @RabbitListener(queues = "oxygen_level")
     public void receive_oxygen_level(String in) throws InterruptedException, ResourceNotFoundException {
+        JSONObject jo = new JSONObject(in);
+        double oxygen = jo.getDouble("oxygen");
         
+        int type = jo.getInt("type");
+        int s_id = jo.getInt("id");
+        if(oxygenhm.containsKey(s_id)){
+            Queue q = oxygenhm.get(s_id);
+            if (q.size() > 30) {
+                q.poll();
+            }
+            q.add( oxygen );
+            oxygenhm.replace(s_id,q);
+        }
+        else{
+            Queue queue = new LinkedList<String>();
+            queue.add( oxygen );
+            oxygenhm.put(s_id,queue);
+            //controller.addSensor(type);
+            //System.out.println("O2 " +  s_id );
+        }
     }
 
-    public  Queue getBlood_pressure(Integer id) {
-        //Given a sensor id retrieve blood pressure
+    public Queue getBlood_pressure(Integer id) {
+        //Given a sensor id retrieve blood pressure queue
         return blood_pressure.get(id);
     }
 
@@ -138,7 +192,7 @@ public class MessageBroker {
     }
 
     public Queue getOxygen(Integer id) {
-        return oxygen.get(id);
+        return oxygenhm.get(id);
     }
 
     public Queue getSugar(Integer id) {

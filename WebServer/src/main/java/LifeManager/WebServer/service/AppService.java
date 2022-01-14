@@ -91,4 +91,9 @@ public class AppService {
     public List<Sensor> getAllSensors() {
         return sensors.findAll();
     }
+
+    public Sensor saveSensor(int type){ //guardamos instãncias de sensores
+        Sensor nSensor = new Sensor(0, type); //0 means turned off
+        return sensors.save(nSensor);
+    }
 }

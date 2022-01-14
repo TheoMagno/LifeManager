@@ -20,14 +20,14 @@ public class Sensor {
     @ManyToOne
     @JoinColumn(name = "patient")
     private Patient patient;
-    private short state;
-    private short type;
+    private int state;
+    private int type;
 
     public Sensor(){
 
     }
 
-    public Sensor(short state, short type){
+    public Sensor(int state, int type){
         this.state = state;
         this.type = type;
     }
@@ -45,18 +45,18 @@ public class Sensor {
     }
 
     @Column(name = "type", nullable = false)
-    public short getType() {
+    public int getType() {
         return type;
     }
-    public void settype(Short type) {
+    public void settype(int type) {
         this.type = type;
     }
 
     @Column(name = "state", nullable = false)
-    public short getState() {
+    public int getState() {
         return state;
     }
-    public void setstate(Short state) {
+    public void setstate(int state) {
         this.state = state;
     }
 }

@@ -84,11 +84,16 @@ public class Controller {
         return service.getPatientById(id);
     }
 
-    //Sensors
+    /*Sensors*/
     @GetMapping("/sensors")
     public List<Sensor> findSensors() {
         return service.getAllSensors();
     }
+
+    public Sensor addSensor(int type){
+        return service.saveSensor(type);
+    }
+
 
     //Alarms
     @GetMapping("/alarms")
