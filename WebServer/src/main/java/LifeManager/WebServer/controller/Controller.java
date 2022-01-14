@@ -31,7 +31,7 @@ public class Controller {
     }
 
     @GetMapping("/doctors")
-    public List<Doctor> findDoctors(@RequestParam(required=false) Long medicalID, @RequestParam(required=false) String name, @RequestParam(required = false) String speciality) {
+    public List<Doctor> findDoctors(@RequestParam(required = false) Long medicalID, @RequestParam(required=false) String name, @RequestParam(required = false) String speciality) {
         if (medicalID != null) {
             return service.getByMedicalID(medicalID);
         }
@@ -61,7 +61,7 @@ public class Controller {
     }
 
     @GetMapping("/patients")
-    public List<Patient> findPatients(@RequestParam(required=false) Long numUtente, @RequestParam(required=false) String name, @RequestParam(required = false) String speciality) {
+    public List<Patient> findPatients(@RequestParam(required = false) Long numUtente, @RequestParam(required=false) String name, @RequestParam(required = false) String speciality) {
         if (numUtente != null) {
             return service.getByUtente(numUtente);
         }
@@ -99,5 +99,33 @@ public class Controller {
     @GetMapping("/alarms")
     public List<Alarm> findAlarms() {
         return service.getAllAlarms();
+    }
+
+    //Login
+    @GetMapping("/login")
+    public boolean login(@RequestParam(required = false) Long medicalID, @RequestParam(required = false) Long numUtente, @RequestParam(required = true) String password) {
+        if (medicalID != null) {
+            try {
+                Doctor d = service.getByMedicalID(medicalID).get(0);
+                if (d.getPassword().equals(password)) {
+                    return true;
+                }
+                return false;
+            } catch (Exception e) {
+                return false;
+            }
+        }
+        else if (numUtente != null) {
+            try {
+                Patient p = service.getByUtente(numUtente).get(0);
+                if (p.getPassword().equals(password)) {
+                    return true;
+                }
+                return false;   
+            } catch (Exception e) {
+                return false;
+            }
+        }
+        return false;
     }
 }

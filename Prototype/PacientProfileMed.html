@@ -133,7 +133,7 @@
         <div class="container">
 
             <div class="row">
-                <div class="col-12 col-md-8">
+                <div class="col-12 col-md-10">
                    <div class="message-box">
                       <h4>Personal Data</h4>
                       <br>
@@ -162,10 +162,14 @@
                             <em id="height"></em>
                             <em> m</em>
                          </div>
+                         <div class="col-6 col-md-4">
+                           <b> Health Service Number: </b>
+                           <em id="numUtente"></em>
+                        </div>
                       </div>
                       <h1></h1>
                       <h1></h1>
-                      <div class="row">
+                      <div class="row" id="values">
                          <div class="col-md-6" id = "Conditions">
                             <p ><b>Diseases and Conditions: </b></p>
                             <ul id="userConditionList"></ul>  
@@ -263,6 +267,10 @@
                         document.getElementById("gender").innerText = data.gender;
                         document.getElementById("weight").innerText = data.weight;
                         document.getElementById("height").innerText = data.height;
+                        document.getElementById("numUtente").innerText = data.numUtente;
+                        if (data.conditions == "" & data.medication == "") {
+                           document.getElementById("values").remove();
+                        }
                         if (data.conditions == "") {
                            document.getElementById("Conditions").style.visibility = 'collapse';
                         }
