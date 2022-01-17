@@ -6,7 +6,7 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
          <script>
             function show_result(){
                $('#patients').html($('#joao').html());
@@ -138,10 +138,10 @@
         <div  class="section wow fadeIn" style="margin-top: 4rem;">
             <div class="container">
                <div class="row">
-                     <div class="input-group col-md-8" >
-                        <input type="text" class="form-control input-lg" placeholder="Search for patient" />
+                     <div class="input-group col-md-8" sytle="text-align='center'">
+                        <input type="text" class="form-control input-lg" placeholder="Search for patient" id="name"/>
                         <span class="input-group-btn">
-                        <button class="btn btn-info btn-lg" type="button" onclick="show_result()">
+                        <button class="btn btn-info btn-lg" type="button" onclick=show_result()>
                         <i class="fa fa-search" aria-hidden="true"></i>
                         </button>
                         </span>
@@ -152,70 +152,12 @@
             </div>
             <!-- end container -->
             <div class="container" id="patients" style="margin-top: 5%;">
-              
-            
                <div class="row">
                   <div class="col-md-12" align="center" style="margin-top: 5%;" >
                      <h2> All patients </h2>
                   </div>
                </div>
-               <div class="row  " style="margin-top: 3%;">
-                  <div class="col-md-12">
-                     <a href="PacientProfileMed.html" >
-                        <div class="card ">
-                           <div class="card-body">
-                              
-                                    <p><b>Name: </b> Rosália Josefina</p>
-                                    <p><b>Age: </b> 81</p>
-                            
-                           </div>
-                        </div>
-                     </a>
-                  </div>
-               </div>
-               <div class="row">
-                  <div class="col-md-12">
-                     <a href="PacientProfileMed.html" >
-                        <div class="card ">
-                           <div class="card-body">
-                              
-                                    <p><b>Name: </b> Manel Fernandes</p>
-                                    <p><b>Age: </b> 61</p>
-                             
-                           </div>
-                        </div>
-                     </a>
-                  </div>
-               </div>
-               <div class="row">
-                  <div class="col-md-12">
-                     <a href="PacientProfileMed.html" >
-                        <div class="card ">
-                           <div class="card-body">
-                              
-                                    <p><b>Name: </b> Carminda Rodrigues</p>
-                                    <p><b>Age: </b> 68</p>
-                             
-                           </div>
-                        </div>
-                     </a>
-                  </div>
-               </div>
-               <div class="row">
-                  <div class="col-md-12">
-                     <a href="PacientProfileMed.html" >
-                        <div class="card ">
-                           <div class="card-body">
-                              
-                                    <p><b>Name: </b> Elvira Santos </p>
-                                   
-                                    <p><b>Age: </b> 98</p>
-                             
-                           </div>
-                        </div>
-                     </a>
-                  </div>
-               </div>
+               <div class="container" style="text-align: center; margin-top: 2%; margin-bottom: 2%;" id="content"></div>
                <!-- end row -->
             </div>
             <!-- end container -->
@@ -227,7 +169,22 @@
 
 
 
-
+         <script>
+            function show_result() {
+               element = document.getElementById("name").value;
+                $.ajax({
+                  url: 'http://localhost:8080/patients?name='+element,
+                  beforeSend: function(xhr) {
+                     xhr.setRequestHeader("Authorization", "Bearer 6QXNMEMFHNY4FJ5ELNFMP5KRW52WFXN5")
+                  }, success: function(data){
+                     console.log(data);
+                     data.forEach(ele => {
+                           document.getElementById("content").innerHTML += '<div class="column"><div class="card"><h1>'+ele.name+'</h1><p class="age">'+ele.age+' anos</p><p class="age">Health Service Number: '+ele.numUtente+'</p><a href="#"><i class="fa fa-dribbble"></i></a><p><a href="PacientProfileMed.html?'+ele.id+'"><button type="submit">See More</button></a></p></div></div>'
+                     })
+                  }
+               });
+            }
+         </script>
     </body>
 </html>
 

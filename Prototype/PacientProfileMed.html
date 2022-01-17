@@ -274,8 +274,14 @@
                         if (data.conditions == "") {
                            document.getElementById("Conditions").style.visibility = 'collapse';
                         }
+                        else {
+                           document.getElementById("Conditions").innerText = data.conditions;
+                        }
                         if (data.medication == "") {
                            document.getElementById("Medications").style.visibility = 'collapse';
+                        }
+                        else {
+                           document.getElementById("Medications").innerText = data.medication;
                         }
                      }
                   });

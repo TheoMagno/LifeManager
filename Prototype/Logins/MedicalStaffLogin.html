@@ -71,9 +71,6 @@
             }
             </style>
             <script>
-              $(document).ready(function() {
-                console.log(sessionStorage.getItem("medicalID"));
-              });
               function login()
                 {
                   var uid = document.getElementById("medicalid").value;
@@ -105,10 +102,8 @@
                         if (data==true) {
                           alert('Thank You for Login & You are Redirecting to LifeManager Website');
                           //Redirecting to other page or webste code or you can set your own html page.
-                          localStorage.setItem("medicalID", uid);
-                          console.log(localStorage.getItem("medicalID"));
-                          setTimeout(() => {  window.location.href = "../MedStaffPage.html"; }, 2000);
-                          //window.location = "../MedStaffPage.html";
+                          window.sessionStorage.setItem("medicalID", uid);
+                          window.location = "../MedStaffPage.html";
                         }
                         else {
                           alert('Invalid credentials! Please Try Again.');
