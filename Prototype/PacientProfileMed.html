@@ -7,6 +7,8 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+        <script src="/webjars/stomp-websocket/stomp.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <style>
             body {font-family: Arial, Helvetica, sans-serif;}
@@ -197,14 +199,12 @@
              <hr class="hr1">
              <div id="latestInf">
                <div class="row"> 
-                  <!--div class="col-md-4"> <b>Blood Pressure</b>
-                     <p id="latest_bp"> 92</p>
-                  </div>-->
+                
                   <div class="col-sm-4">
                      <div class="card">
                        <div class="card-body">
                          <h5 class="card-title">Blood pressure</h5>
-                         <p class="card-text">92</p>
+                         <p class="card-text" id="blood_pressure"></p>
                          <a href="#" class="btn btn-primary">Go somewhere</a>
                        </div>
                      </div>
@@ -213,7 +213,7 @@
                      <div class="card">
                        <div class="card-body">
                          <h5 class="card-title">Body Tenperature</h5>
-                         <p class="card-text">38</p>
+                         <p class="card-text" id="body_temp"></p>
                          <a href="#" class="btn btn-primary">Go somewhere</a>
                        </div>
                      </div>
@@ -223,7 +223,7 @@
                      <div class="card">
                        <div class="card-body">
                          <h5 class="card-title">Heart Rate</h5>
-                         <p class="card-text">88</p>
+                         <p class="card-text" id="heart_rate"></p>
                          <a href="#" class="btn btn-primary">Go somewhere</a>
                        </div>
                      </div>
@@ -236,7 +236,7 @@
                      <div class="card">
                        <div class="card-body">
                          <h5 class="card-title">Glycemia</h5>
-                         <p class="card-text">0.56</p>
+                         <p class="card-text" id="glycemia"></p>
                          <a href="#" class="btn btn-primary">Go somewhere</a>
                        </div>
                      </div>
@@ -245,7 +245,7 @@
                      <div class="card">
                        <div class="card-body">
                          <h5 class="card-title">Oxygen Saturation</h5>
-                         <p class="card-text">0.66</p>
+                         <p class="card-text" id="o2"></p>
                          <a href="#" class="btn btn-primary">Go somewhere</a>
                        </div>
                      </div>
@@ -256,30 +256,54 @@
             </div>
             <script>
                $(document).ready(function() {
-                  var id = location.search.substring(1);
-                  $.ajax({
-                     url: 'http://localhost:8080/patients/'+id,
-                     beforeSend: function(xhr) {
-                        xhr.setRequestHeader("Authorization", "Bearer 6QXNMEMFHNY4FJ5ELNFMP5KRW52WFXN5")
-                     }, success: function(data){
-                        document.getElementById("name").innerText = data.name;
-                        document.getElementById("age").innerText = data.age;
-                        document.getElementById("gender").innerText = data.gender;
-                        document.getElementById("weight").innerText = data.weight;
-                        document.getElementById("height").innerText = data.height;
-                        document.getElementById("numUtente").innerText = data.numUtente;
-                        if (data.conditions == "" & data.medication == "") {
-                           document.getElementById("values").remove();
-                        }
-                        if (data.conditions == "") {
-                           document.getElementById("Conditions").style.visibility = 'collapse';
-                        }
-                        if (data.medication == "") {
-                           document.getElementById("Medications").style.visibility = 'collapse';
-                        }
+                  function showGreeting(type, value) {
+                     switch(type){
+                        case 1:
+                           document.getElementById("blood_pressure").innerText = value;
+                        case 2:
+                           document.getElementById("body_temp").innerText = value;
+                        case 3:
+                           document.getElementById("heart_rate").innerText = value;
+                        case 4:
+                           document.getElementById("glycemia").innerText = value;
+                        case 5:
+                           document.getElementById("o2").innerText = value;
                      }
+
+                  }
+                  var id = location.search.substring(1);
+                  var stompClient = null;
+                  var socket = new SockJS('http://localhost:8080/websocket');
+                  stompClient = Stomp.over(socket);
+                  stompClient.connect({}, function (frame) {
+                     setConnected(true);
+                     console.log('Connected: ' + frame);
+                     stompClient.subscribe('/topic/greetings', function (greeting) {
+                        $.ajax({
+                           url: 'http://localhost:8080/patients/'+id,
+                           beforeSend: function(xhr) {
+                              xhr.setRequestHeader("Authorization", "Bearer 6QXNMEMFHNY4FJ5ELNFMP5KRW52WFXN5")
+                           }, success: function(data){
+                              document.getElementById("name").innerText = data.name;
+                              document.getElementById("age").innerText = data.age;
+                              document.getElementById("gender").innerText = data.gender;
+                              document.getElementById("weight").innerText = data.weight;
+                              document.getElementById("height").innerText = data.height;
+                              document.getElementById("numUtente").innerText = data.numUtente;
+                              if (data.conditions == "" & data.medication == "") {
+                                 document.getElementById("values").remove();
+                              }
+                              if (data.conditions == "") {
+                                 document.getElementById("Conditions").style.visibility = 'collapse';
+                              }
+                              if (data.medication == "") {
+                                 document.getElementById("Medications").style.visibility = 'collapse';
+                              }
+                           }
+                        });
+                        a =  showGreeting(JSON.parse(greeting.body).type , JSON.parse(greeting.body).value);
+                     });
                   });
-                  
                });
             </script>
         </body>
