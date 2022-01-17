@@ -1,5 +1,6 @@
 package LifeManager.WebServer;
 
+import LifeManager.WebServer.model.FrontEndMessage;
 import LifeManager.WebServer.model.Patient;
 import LifeManager.WebServer.model.Sensor;
 import LifeManager.WebServer.controller.*;
@@ -41,9 +42,9 @@ public class MessageBroker {
         int type = jo.getInt("type");
 
         int s_id = jo.getInt("id");
-        System.out.println(s_id);
-        System.out.println(heartbeat.containsKey(s_id));
-        System.out.println("---------------------------------------------");
+        //System.out.println(s_id);
+        //System.out.println(heartbeat.containsKey(s_id));
+        //System.out.println("---------------------------------------------");
         if(heartbeat.containsKey(s_id)){
             
             Queue q = heartbeat.get(s_id);
@@ -62,6 +63,9 @@ public class MessageBroker {
             System.out.println("I should only appear once.");
             queue.add(heart_beat);
             heartbeat.put(s_id,queue);
+            FrontEndMessage mess = new FrontEndMessage(s_id, type, String.valueOf(type)); //criar uma instancia para frontend message
+            
+            controller.greeting(s_id , mess); //Sends message to greeting method in controller
             //controller.addSensor(type);
             
         }
