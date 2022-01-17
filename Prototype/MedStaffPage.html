@@ -135,7 +135,7 @@
                         <a class="nav-link" href="PacientsSearch.html">Search</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="HomePage/homePage.html">Logout</a>
+                        <a class="nav-link" href="HomePage/homePage.html" onclick=clearStorage() >Logout</a>
                     </li>
                 </ul>
             </div>
@@ -153,7 +153,6 @@
         </div>
 
         <script>
-            //console.log(localStorage.getItem("medicalID"));       Não estou a conseguir salvar a sessão
             $(document).ready(function() {
                 $.ajax({
                     url: 'http://localhost:8080/doctors/types',
@@ -177,7 +176,9 @@
                     }
                 })
             });
-
+            function clearStorage() {
+                window.sessionStorage.clear();
+            }
         </script>
     </body>
 </html>

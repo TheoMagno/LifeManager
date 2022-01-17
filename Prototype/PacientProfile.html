@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html>
+   <meta charset="UTF-8">
     <head>
         <!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
         <title> Pacient Profile</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <style>
             body {font-family: Arial, Helvetica, sans-serif;}
             form {border: 3px solid #f1f1f1;}
@@ -111,7 +113,7 @@
             <a href="homePage.html">
                 <img src="logo.png" alt="LifeManager Logo" width="50" style="margin-left: 20px; margin-right: 20px;">
             </a>
-            <a class="navbar-brand" href="MedStaffPage.html">LifeManager</a>
+            <a class="navbar-brand" href="PacientProfile.html">LifeManager</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -119,7 +121,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="HomePage/homePage.html">Logout</a>
+                        <a class="nav-link" href="HomePage/homePage.html" onclick=clearStorage()>Logout</a>
                     </li>
                 </ul>
             </div>
@@ -133,40 +135,40 @@
                   <br>
                   <div class="row">
                      <div class="col-6 col-md-4">
-                        <b>Name: Gabriela Lopes</b>
-                        <em id ="userFullName"></em>
+                        <b>Name: </b>
+                        <em id ="name"></em>
                      </div>
                      <div class="col-6 col-md-4">
-                        <b>Age: 64</b>
-                        <em id="userAge"></em>
+                        <b>Age: </b>
+                        <em id="age"></em>
                      </div>
                      <div class="col-6 col-md-4">
-                        <b>Gender: Female</b>
-                        <em id="userGender"></em>
+                        <b>Gender: </b>
+                        <em id="gender"></em>
                      </div>
                   </div>
                   <div class="row">
                      <div class="col-6 col-md-4">
-                        <b>Weight: 66</b>
-                        <em id="userWeight"></em>
+                        <b>Weight: </b>
+                        <em id="weight"></em>
                         <em> kg</em>
                      </div>
                      <div class="col-6 col-md-4">
-                        <b>Height: 1,92</b>
-                        <em id="userHeight"></em>
+                        <b>Height: </b>
+                        <em id="height"></em>
                         <em> m</em>
                      </div>
                   </div>
                   <h1></h1>
                   <h1></h1>
-                  <div class="row">
+                  <div class="row" id="values">
                      <div class="col-md-6">
                         <p><b>Diseases and Conditions: </b></p>
-                        <ul id="userConditionList"></ul>  
+                        <ul id="Conditions"></ul>  
                      </div>
                      <div class="col-md-6">
                         <p><b>Medication: </b></p>
-                        <ul id="userMedicationList"></ul>
+                        <ul id="Medications"></ul>
                      </div>
                   </div>
                </div>
@@ -244,5 +246,43 @@
             </div>
          </div>
         </div>
+        <script>
+           $(document).ready(function() {
+                  var id = window.sessionStorage.getItem("numUtente");
+                  $.ajax({
+                     url: 'http://localhost:8080/patients?numUtente='+id,
+                     beforeSend: function(xhr) {
+                        xhr.setRequestHeader("Authorization", "Bearer 6QXNMEMFHNY4FJ5ELNFMP5KRW52WFXN5")
+                     }, success: function(array){
+                        data = array[0];
+                        document.getElementById("name").innerText = data.name;
+                        document.getElementById("age").innerText = data.age;
+                        document.getElementById("gender").innerText = data.gender;
+                        document.getElementById("weight").innerText = data.weight;
+                        document.getElementById("height").innerText = data.height;
+                        //document.getElementById("numUtente").innerText = data.numUtente;
+                        if (data.conditions == "" & data.medication == "") {
+                           document.getElementById("values").remove();
+                        }
+                        if (data.conditions == "") {
+                           document.getElementById("Conditions").style.visibility = 'collapse';
+                        }
+                        else {
+                           document.getElementById("Conditions").innerText = data.conditions;
+                        }
+                        if (data.medication == "") {
+                           document.getElementById("Medications").style.visibility = 'collapse';
+                        }
+                        else {
+                           document.getElementById("Medications").innerText = data.medication;
+                        }
+                     }
+                  });
+                  
+               });
+           function clearStorage() {
+              window.sessionStorage.clear();
+           }
+        </script>
     </body>
 </html>

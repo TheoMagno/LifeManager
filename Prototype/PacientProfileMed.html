@@ -126,7 +126,7 @@
                      <a class="nav-link" href="PacientsSearch.html">Search</a>
                   </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="HomePage/homePage.html">Logout</a>
+                        <a class="nav-link" href="HomePage/homePage.html" onclick=clearStorage()>Logout</a>
                     </li>
                 </ul>
             </div>
@@ -256,6 +256,7 @@
             </div>
             <script>
                $(document).ready(function() {
+
                   function showGreeting(type, value) {
                      switch(type){
                         case 1:
@@ -268,6 +269,35 @@
                            document.getElementById("glycemia").innerText = value;
                         case 5:
                            document.getElementById("o2").innerText = value;
+
+                  var id = location.search.substring(1);
+                  $.ajax({
+                     url: 'http://localhost:8080/patients/'+id,
+                     beforeSend: function(xhr) {
+                        xhr.setRequestHeader("Authorization", "Bearer 6QXNMEMFHNY4FJ5ELNFMP5KRW52WFXN5")
+                     }, success: function(data){
+                        document.getElementById("name").innerText = data.name;
+                        document.getElementById("age").innerText = data.age;
+                        document.getElementById("gender").innerText = data.gender;
+                        document.getElementById("weight").innerText = data.weight;
+                        document.getElementById("height").innerText = data.height;
+                        document.getElementById("numUtente").innerText = data.numUtente;
+                        if (data.conditions == "" & data.medication == "") {
+                           document.getElementById("values").remove();
+                        }
+                        if (data.conditions == "") {
+                           document.getElementById("Conditions").style.visibility = 'collapse';
+                        }
+                        else {
+                           document.getElementById("Conditions").innerText = data.conditions;
+                        }
+                        if (data.medication == "") {
+                           document.getElementById("Medications").style.visibility = 'collapse';
+                        }
+                        else {
+                           document.getElementById("Medications").innerText = data.medication;
+                        }
+
                      }
 
                   }
@@ -305,6 +335,9 @@
                      });
                   });
                });
+               function clearStorage() {
+                  window.sessionStorage.clear();
+               }
             </script>
         </body>
     </html>
