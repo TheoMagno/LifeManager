@@ -155,7 +155,7 @@
         <script>
             $(document).ready(function() {
                 $.ajax({
-                    url: 'http://localhost:8080/doctors/types',
+                    url: 'http://172.10.0.1:8080/doctors/types',
                     beforeSend: function(xhr) {
                         xhr.setRequestHeader("Authorization", "Bearer 6QXNMEMFHNY4FJ5ELNFMP5KRW52WFXN5")
                     }, success: function(data){
@@ -163,7 +163,7 @@
                         data.forEach(element => {
                             document.getElementById("content").innerHTML += '<h1 style="text-align: center; margin-top: 2%;  font-family: "Raleway",sans-serif; font-size: 45px; font-weight: 500; line-height: 48px;">'+element+'</h1>'+'<div class="row" id="'+element+'"> </div>';
                             $.ajax({
-                                url: 'http://localhost:8080/patients?speciality='+element,
+                                url: 'http://172.10.0.1:8080/patients?speciality='+element,
                                 beforeSend: function(xhr) {
                                     xhr.setRequestHeader("Authorization", "Bearer 6QXNMEMFHNY4FJ5ELNFMP5KRW52WFXN5")
                                 }, success: function(data2){

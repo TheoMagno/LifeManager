@@ -258,7 +258,7 @@
                $(document).ready(function() {
                   var id = location.search.substring(1);
                   $.ajax({
-                     url: 'http://localhost:8080/patients/'+id,
+                     url: 'http://172.10.0.1:8080/patients/'+id,
                      beforeSend: function(xhr) {
                         xhr.setRequestHeader("Authorization", "Bearer 6QXNMEMFHNY4FJ5ELNFMP5KRW52WFXN5")
                      }, success: function(data){
