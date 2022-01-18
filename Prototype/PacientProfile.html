@@ -250,7 +250,7 @@
            $(document).ready(function() {
                   var id = window.sessionStorage.getItem("numUtente");
                   $.ajax({
-                     url: 'http://172.10.0.1:8080/patients?numUtente='+id,
+                     url: 'http://192.168.160.220:8080/patients?numUtente='+id,
                      beforeSend: function(xhr) {
                         xhr.setRequestHeader("Authorization", "Bearer 6QXNMEMFHNY4FJ5ELNFMP5KRW52WFXN5")
                      }, success: function(array){

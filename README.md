@@ -15,7 +15,7 @@ Location: /DataStream
 
 sudo docker-compose up -d --build --remove-orphans --force-recreate
 
-
+192.168.160.220
 _________________________________________________________________________________-
 
 docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3.9-management

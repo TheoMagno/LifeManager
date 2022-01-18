@@ -269,48 +269,19 @@
                            document.getElementById("glycemia").innerText = value;
                         case 5:
                            document.getElementById("o2").innerText = value;
-
-                  var id = location.search.substring(1);
-                  $.ajax({
-                     url: 'http://172.10.0.1:8080/patients/'+id,
-                     beforeSend: function(xhr) {
-                        xhr.setRequestHeader("Authorization", "Bearer 6QXNMEMFHNY4FJ5ELNFMP5KRW52WFXN5")
-                     }, success: function(data){
-                        document.getElementById("name").innerText = data.name;
-                        document.getElementById("age").innerText = data.age;
-                        document.getElementById("gender").innerText = data.gender;
-                        document.getElementById("weight").innerText = data.weight;
-                        document.getElementById("height").innerText = data.height;
-                        document.getElementById("numUtente").innerText = data.numUtente;
-                        if (data.conditions == "" & data.medication == "") {
-                           document.getElementById("values").remove();
-                        }
-                        if (data.conditions == "") {
-                           document.getElementById("Conditions").style.visibility = 'collapse';
-                        }
-                        else {
-                           document.getElementById("Conditions").innerText = data.conditions;
-                        }
-                        if (data.medication == "") {
-                           document.getElementById("Medications").style.visibility = 'collapse';
-                        }
-                        else {
-                           document.getElementById("Medications").innerText = data.medication;
-                        }
-
                      }
-
                   }
+                
                   var id = location.search.substring(1);
                   var stompClient = null;
-                  var socket = new SockJS('http://localhost:8080/websocket');
+                  var socket = new SockJS('http://192.168.160.220:8080/websocket');
                   stompClient = Stomp.over(socket);
                   stompClient.connect({}, function (frame) {
                      setConnected(true);
                      console.log('Connected: ' + frame);
                      stompClient.subscribe('/topic/greetings', function (greeting) {
                         $.ajax({
-                           url: 'http://localhost:8080/patients/'+id,
+                           url: 'http://192.168.160.220:8080/patients/'+id,
                            beforeSend: function(xhr) {
                               xhr.setRequestHeader("Authorization", "Bearer 6QXNMEMFHNY4FJ5ELNFMP5KRW52WFXN5")
                            }, success: function(data){
