@@ -32,7 +32,7 @@ class Generator:
         time.sleep(5)
         self.sensor_id = 1
        
-        self.connection = pika.BlockingConnection(pika.ConnectionParameters('192.168.160.220',port=5672))
+        self.connection = pika.BlockingConnection(pika.ConnectionParameters('172.17.0.1',port=5672))
         self.channel = self.connection.channel()
         self.channel.queue_declare(queue='heartbeat',durable=True)
         self.channel.queue_declare(queue='blood_pressure',durable=True)

@@ -28,8 +28,8 @@ public class Controller {
     //Doctors
     @Autowired
     private AppService service;
-
-
+ 
+   
     
     @SendTo("doctors/{id}/patients") //value returned by the function will be sent to this mapping
     public FrontEndMessage greeting(@DestinationVariable int id,FrontEndMessage message) {
