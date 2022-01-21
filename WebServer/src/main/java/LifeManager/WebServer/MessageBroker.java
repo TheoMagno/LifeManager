@@ -63,7 +63,7 @@ public class MessageBroker {
             System.out.println("I should only appear once.");
             queue.add(heart_beat);
             heartbeat.put(s_id,queue);
-            FrontEndMessage mess = new FrontEndMessage(s_id, type, String.valueOf(type)); //criar uma instancia para frontend message
+            FrontEndMessage mess = new FrontEndMessage(s_id, type, String.valueOf(heart_beat)); //criar uma instancia para frontend message
             
             controller.greeting(s_id , mess); //Sends message to greeting method in controller
             //controller.addSensor(type);
@@ -93,6 +93,9 @@ public class MessageBroker {
             Queue queue = new LinkedList<String>();
             queue.add(sugar_level);
             sugar.put(s_id,queue);
+            FrontEndMessage mess = new FrontEndMessage(s_id, type, String.valueOf(sugar_level)); //criar uma instancia para frontend message
+            
+            controller.greeting(s_id , mess); //Sends message to greeting method in controller
             //controller.addSensor(type);
             //System.out.println("sugar "+s_id);
             //sugar will contain the most recent value from the sensor
@@ -124,6 +127,9 @@ public class MessageBroker {
             double[] bp = {systolic,diastolic};
             queue.add(bp);
             blood_pressure.put(s_id,queue);
+            FrontEndMessage mess = new FrontEndMessage(s_id, type, String.valueOf(systolic)); //criar uma instancia para frontend message
+            
+            controller.greeting(s_id , mess); //Sends message to greeting method in controller
             //controller.addSensor(type);
             //System.out.println("BP  "+s_id);
             //blood_pressure will contain the most recent value from the sensor
@@ -151,6 +157,9 @@ public class MessageBroker {
             Queue queue = new LinkedList<String>();
             queue.add(body_temp);
             temperature.put(s_id,queue);
+            FrontEndMessage mess = new FrontEndMessage(s_id, type, String.valueOf(body_temp)); //criar uma instancia para frontend message
+            
+            controller.greeting(s_id , mess); //Sends message to greeting method in controller
             //controller.addSensor(type);
             //System.out.println("temp " + s_id);
             //temperature will contain the most recent value from the sensor
@@ -177,6 +186,9 @@ public class MessageBroker {
             Queue queue = new LinkedList<String>();
             queue.add( oxygen );
             oxygenhm.put(s_id,queue);
+            FrontEndMessage mess = new FrontEndMessage(s_id, type, String.valueOf(oxygen)); //criar uma instancia para frontend message
+            
+            controller.greeting(s_id , mess); //Sends message to greeting method in controller
             //controller.addSensor(type);
             //System.out.println("O2 " +  s_id );
         }
