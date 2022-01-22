@@ -275,15 +275,21 @@
                         case 1:
                            document.getElementById("heart_rate").innerText = value;
                            if (value < 38.3){
-                              console.log("Value sucess. Body temp");
+                              console.log("Value sucess. Heart rate");
                               document.getElementById("heart_rate").style.backgroundColor = 'red';
                            }
                         case 4:
                            document.getElementById("glycemia").innerText = value;
-                           document.getElementById("glycemia").style.backgroundColor = 'red';
+                           if (value < 7){
+                              console.log("Value sucess. Glycemia");
+                              document.getElementById("glycemia").style.backgroundColor = 'red';
+                           }
                         case 5:
                            document.getElementById("o2").innerText = value;
-                           document.getElementById("o2").style.backgroundColor = 'red';
+                           if (value < 7){
+                              console.log("Value sucess. o2");
+                              document.getElementById("o2").style.backgroundColor = 'red';
+                           }
                      }
                   }
                 
