@@ -259,16 +259,31 @@
 
                   function showGreeting(type, value) {
                      switch(type){
-                        case 1:
-                           document.getElementById("blood_pressure").innerText = value;
                         case 2:
-                           document.getElementById("body_temp").innerText = value;
+                           document.getElementById("blood_pressure").innerText = value;
+                           if (value < 129){
+                              console.log("Value sucess. Blood_pressure");
+                              document.getElementById("blood_pressure").style.backgroundColor = 'red';
+                           }
+                           
                         case 3:
+                           document.getElementById("body_temp").innerText = value;
+                           if (value < 38.3){
+                              console.log("Value sucess. Body temp");
+                              document.getElementById("body_temp").style.backgroundColor = 'red';
+                           }
+                        case 1:
                            document.getElementById("heart_rate").innerText = value;
+                           if (value < 38.3){
+                              console.log("Value sucess. Body temp");
+                              document.getElementById("heart_rate").style.backgroundColor = 'red';
+                           }
                         case 4:
                            document.getElementById("glycemia").innerText = value;
+                           document.getElementById("glycemia").style.backgroundColor = 'red';
                         case 5:
                            document.getElementById("o2").innerText = value;
+                           document.getElementById("o2").style.backgroundColor = 'red';
                      }
                   }
                 
