@@ -112,7 +112,7 @@
     <body>
 
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a href="homePage.html">
+            <a href="index.html">
                 <img src="logo.png" alt="LifeManager Logo" width="50" style="margin-left: 20px; margin-right: 20px;">
             </a>
             <a class="navbar-brand" href="MedStaffPage.html">LifeManager</a>
@@ -256,51 +256,7 @@
             </div>
             <script>
                $(document).ready(function() {
-
-                  function showGreeting(type, value) {
-                     switch(type){
-                        case 2:
-                           document.getElementById("blood_pressure").innerText = value;
-                           if (value < 129){
-                              console.log("Value sucess. Blood_pressure");
-                              document.getElementById("blood_pressure").style.backgroundColor = 'red';
-                           }
-                           
-                        case 3:
-                           document.getElementById("body_temp").innerText = value;
-                           if (value < 38.3){
-                              console.log("Value sucess. Body temp");
-                              document.getElementById("body_temp").style.backgroundColor = 'red';
-                           }
-                        case 1:
-                           document.getElementById("heart_rate").innerText = value;
-                           if (value < 38.3){
-                              console.log("Value sucess. Heart rate");
-                              document.getElementById("heart_rate").style.backgroundColor = 'red';
-                           }
-                        case 4:
-                           document.getElementById("glycemia").innerText = value;
-                           if (value < 7){
-                              console.log("Value sucess. Glycemia");
-                              document.getElementById("glycemia").style.backgroundColor = 'red';
-                           }
-                        case 5:
-                           document.getElementById("o2").innerText = value;
-                           if (value < 7){
-                              console.log("Value sucess. o2");
-                              document.getElementById("o2").style.backgroundColor = 'red';
-                           }
-                     }
-                  }
-                
-                  var id = location.search.substring(1);
-                  var stompClient = null;
-                  var socket = new SockJS('http://172.17.0.1:8080/websocket');
-                  stompClient = Stomp.over(socket);
-                  stompClient.connect({}, function (frame) {
-                     setConnected(true);
-                     console.log('Connected: ' + frame);
-                     stompClient.subscribe('/topic/greetings', function (greeting) {
+                        var id = location.search.substring(1);
                         $.ajax({
                            url: 'http://172.17.0.1:8080/patients/'+id,
                            beforeSend: function(xhr) {
@@ -322,11 +278,9 @@
                                  document.getElementById("Medications").style.visibility = 'collapse';
                               }
                            }
-                        });
-                        a =  showGreeting(JSON.parse(greeting.body).type , JSON.parse(greeting.body).value);
+                        });    
                      });
-                  });
-               });
+              
                function clearStorage() {
                   window.sessionStorage.clear();
                }

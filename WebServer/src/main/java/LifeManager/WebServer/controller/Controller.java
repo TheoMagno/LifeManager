@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.web.util.HtmlUtils;
+//import org.springframework.messaging.handler.annotation.MessageMapping;
+//import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 
 import LifeManager.WebServer.service.*;
 import LifeManager.WebServer.model.*;
@@ -29,13 +29,15 @@ public class Controller {
     @Autowired
     private AppService service;
  
+    @Autowired
+    private SimpMessagingTemplate template;
    
-    
-    @SendTo("doctors/{id}/patients") //value returned by the function will be sent to this mapping
-    public FrontEndMessage greeting(@DestinationVariable int id,FrontEndMessage message) {
+   
+    public void greeting(@DestinationVariable int id,FrontEndMessage message) {
        // simulated delay
+       FrontEndMessage mess = new FrontEndMessage(message.getId(), message.getType(), message.getValue());
+       this.template.convertAndSend("/topic/ticks", mess);
        System.out.println("here");
-      return new FrontEndMessage(message.getId(), message.getType(), message.getValue());
     }
 
     @PostMapping("/doctors")
