@@ -3,7 +3,7 @@
   <meta charset="UTF-8">
     <head>
         <!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
-        <title>Pacient Login</title>
+        <title>Medical Staff Login</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -69,41 +69,41 @@
                  width: 100%;
               }
             }
-        </style>
-        <script>
-          function login()
-	          {
-		          var uid = document.getElementById("nhsuserid").value;
-		          var pwd = document.getElementById("pwd1").value;
-		          var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-		          if(uid =='')
-		          {
-			          alert("please enter your national health service user id.");
-		          }
-		          else if(pwd=='')
-		          {
-        	      alert("enter the password");
-		          }
-		          else if(uid.length != 9)
-		          {
-			          alert("Enter a valid national health service user id.");
-		          }
-		          else if(pwd.length < 6 )
-		          {
-			          alert("Password min length is 6.");
-		          }
-	          	else
+            </style>
+            <script>
+              function login()
+                {
+                  var uid = document.getElementById("medicalid").value;
+                  var pwd = document.getElementById("pwd1").value;
+                  //var filter = /^([0-9]{8})+$/;
+                  if(uid =='')
+                  {
+                    alert("please enter your medical id.");
+                  }
+                  else if(pwd=='')
+                  {
+                    alert("enter the password");
+                  }
+                  else if(uid.length != 8)
+                  {
+                    alert("Enter valid medical id.");
+                  }
+                  else if(pwd.length < 6 )
+                  {
+                    alert("Password min length is 6.");
+                  }
+                  else
                   {
                     $.ajax({
-                      url: 'http://192.168.160.220:8080/login?numUtente='+uid+'&password='+pwd,
+                      url: 'http://172.17.0.1:8080/login?medicalID='+uid+'&password='+pwd,
                       beforeSend: function(xhr) {
                         xhr.setRequestHeader("Authorization", "Bearer 6QXNMEMFHNY4FJ5ELNFMP5KRW52WFXN5")
                       }, success: function(data){
                         if (data==true) {
                           alert('Thank You for Login & You are Redirecting to LifeManager Website');
                           //Redirecting to other page or webste code or you can set your own html page.
-                          window.sessionStorage.setItem("numUtente", uid);
-                          window.location = "../PacientProfile.html";
+                          window.sessionStorage.setItem("medicalID", uid);
+                          window.location = "../MedStaffPage.html";
                         }
                         else {
                           alert('Invalid credentials! Please Try Again.');
@@ -112,14 +112,14 @@
                       }
                     });
                   }
-	          }
-	          //Reset Inputfield code.
-	          function clearFunc()
-	          {
-		          document.getElementById("nhsuserid").value="";
-		          document.getElementById("pwd1").value="";
-	          }
-        </script>
+                }
+                //Reset Inputfield code.
+                function clearFunc()
+                {
+                  document.getElementById("medicalid").value="";
+                  document.getElementById("pwd1").value="";
+                }
+            </script>
 
     </head>
     <body>
@@ -149,20 +149,20 @@
             </div>
         </nav>
 
-   
-          <div class="container" style="text-align: center; margin-top: 2%; margin-bottom: 2%;">
-              <h1 style="text-align: center; margin-top: 2%;  font-family: 'Raleway',sans-serif; font-size: 45px; font-weight: 500; line-height: 48px;">Pacient Login</h1>
-          </div>
+        
+            <div class="container" style="text-align: center; margin-top: 2%; margin-bottom: 2%;">
+                <h1 style="text-align: center; margin-top: 2%;  font-family: 'Raleway',sans-serif; font-size: 45px; font-weight: 500; line-height: 48px;">Medical Staff Login</h1>
+            </div>
           
-          <!-- Login box -->
+            <!-- Login box -->
 	        <div class="login">
             <table cellspacing="2" align="center" cellpadding="8" border="0">
               <tr>
-                <td>Enter National Health Service User ID:</td>
-                <td><input type="text" placeholder="Enter National Health Service User ID here" id="nhsuserid" class="tb" /></td>
+                <td>Enter Medical ID:</td>
+                <td><input type="text" placeholder="Enter Medical ID here" id="medicalid" class="tb" /></td>
               </tr>
               <tr>
-                <td>Enter Password :</td>
+                <td>Enter Password:</td>
                 <td><input type="password" placeholder="Enter Password here" id="pwd1" class="tb" /></td>
               </tr>
               <tr>
@@ -173,8 +173,8 @@
               </tr>
             </table>
           </div>
+       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
     </body>
 </html>

@@ -57,22 +57,6 @@ services:
       SERVER_IP: backend
       
     restart: on-failure
-
-  client:   
-    build:
-      context: Prototype
-      dockerfile: Dockerfile
-    ports: 
-      - '80:80'
-    depends_on:
-      - db
-      - rabbit
-      - backend
-      - sensors
-    volumes: 
-      - ./src:/etc/share/nginx/html
-    environment:
-      SERVER_IP: backend
     
 volumes:
   db-data:

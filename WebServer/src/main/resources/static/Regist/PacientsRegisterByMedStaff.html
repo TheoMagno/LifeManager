@@ -86,7 +86,7 @@
                     <a class="nav-link" href="../PacientsSearch.html">Search</a>
                   </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../HomePage/homePage.html" onclick=clearStorage()>Logout</a>
+                        <a class="nav-link" href="../index.html" onclick=clearStorage()>Logout</a>
                     </li>
                 </ul>
             </div>
@@ -126,16 +126,13 @@
                 <label for="psw"><b>Repeat Password</b></label>
                 <input type="password" placeholder="Repeat Password" name="psw" required>
             
-                <button onclick="myFunction()">Regist</button>
+                <button onclick="myFunction()">Register Patient</button>
               </div>
 
-         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
         <script>
-          function myFunction() {
-            alert("Pacient successfully registered!!");
-          }
           function clearStorage() {
                 window.sessionStorage.clear();
           }

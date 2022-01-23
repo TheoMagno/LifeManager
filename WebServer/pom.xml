@@ -109,6 +109,16 @@
 			<artifactId>spring-websocket</artifactId>
 			<version>5.3.15</version>
 		</dependency>
+		<dependency>
+			<groupId>org.thymeleaf</groupId>
+			<artifactId>thymeleaf</artifactId>
+			<version>3.1.0.M1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-websocket</artifactId>
+			<version>2.5.4</version>
+		</dependency>
     </dependencies>
 
 	<build>
@@ -116,6 +126,9 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+                	<addResources>true</addResources>
+            	</configuration>
 			</plugin>
 		</plugins>
 	</build>

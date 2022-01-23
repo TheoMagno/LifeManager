@@ -112,7 +112,7 @@
     <body>
 
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a href="homePage.html">
+            <a href="index.html">
                 <img src="logo.png" alt="LifeManager Logo" width="50" style="margin-left: 20px; margin-right: 20px;">
             </a>
             <a class="navbar-brand" href="MedStaffPage.html">LifeManager</a>
@@ -256,32 +256,9 @@
             </div>
             <script>
                $(document).ready(function() {
-
-                  function showGreeting(type, value) {
-                     switch(type){
-                        case 1:
-                           document.getElementById("blood_pressure").innerText = value;
-                        case 2:
-                           document.getElementById("body_temp").innerText = value;
-                        case 3:
-                           document.getElementById("heart_rate").innerText = value;
-                        case 4:
-                           document.getElementById("glycemia").innerText = value;
-                        case 5:
-                           document.getElementById("o2").innerText = value;
-                     }
-                  }
-                
-                  var id = location.search.substring(1);
-                  var stompClient = null;
-                  var socket = new SockJS('http://192.168.160.220:8080/websocket');
-                  stompClient = Stomp.over(socket);
-                  stompClient.connect({}, function (frame) {
-                     setConnected(true);
-                     console.log('Connected: ' + frame);
-                     stompClient.subscribe('/topic/greetings', function (greeting) {
+                        var id = location.search.substring(1);
                         $.ajax({
-                           url: 'http://192.168.160.220:8080/patients/'+id,
+                           url: 'http://172.17.0.1:8080/patients/'+id,
                            beforeSend: function(xhr) {
                               xhr.setRequestHeader("Authorization", "Bearer 6QXNMEMFHNY4FJ5ELNFMP5KRW52WFXN5")
                            }, success: function(data){
@@ -301,11 +278,9 @@
                                  document.getElementById("Medications").style.visibility = 'collapse';
                               }
                            }
-                        });
-                        a =  showGreeting(JSON.parse(greeting.body).type , JSON.parse(greeting.body).value);
+                        });    
                      });
-                  });
-               });
+              
                function clearStorage() {
                   window.sessionStorage.clear();
                }

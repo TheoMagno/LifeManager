@@ -173,7 +173,7 @@
             function show_result() {
                element = document.getElementById("name").value;
                 $.ajax({
-                  url: 'http://192.168.160.220:8080/patients?name='+element,
+                  url: 'http://172.17.0.1:8080/patients?name='+element,
                   beforeSend: function(xhr) {
                      xhr.setRequestHeader("Authorization", "Bearer 6QXNMEMFHNY4FJ5ELNFMP5KRW52WFXN5")
                   }, success: function(data){
