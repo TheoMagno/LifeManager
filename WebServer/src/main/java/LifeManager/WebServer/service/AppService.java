@@ -85,6 +85,10 @@ public class AppService {
         return alarms.findAll();
     }
 
+    public Alarm saveAlarm(Alarm alarm) {
+        return alarms.save(alarm);
+    }
+
     //Sensors
     @Autowired
     private SensorRepository sensors;

@@ -14,9 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
-import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.web.util.HtmlUtils;
 
 import LifeManager.WebServer.service.*;
 import LifeManager.WebServer.model.*;
@@ -112,6 +110,10 @@ public class Controller {
     @GetMapping("/alarms")
     public List<Alarm> findAlarms() {
         return service.getAllAlarms();
+    }
+
+    public Alarm addAlarm(Alarm alarm) {
+        return service.saveAlarm(alarm);
     }
 
     //Login
