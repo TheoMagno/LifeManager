@@ -1,15 +1,16 @@
 package LifeManager.WebServer.model;
 
 public class FrontEndMessage {
-    private int id;
-    private int type;
+    private String id;
+    private String type;
     private String value;
 
   public FrontEndMessage() {
   }
 
-  public FrontEndMessage(int id, int type, String value) {
+  public FrontEndMessage(String id, String type, String value) {
     this.id = id;
+    this.type = type;
     this.value = value;
   }
 
@@ -25,19 +26,23 @@ public class FrontEndMessage {
     this.value = value;
   }
 
-  public int getId() {
+  public String getId() {
     return id;
   }
 
-  public void setId(int id) {
+  public void setId(String id) {
     this.id = id;
   }
 
-  public int getType() {
+  public String getType() {
     return type;
   }
 
-  public void setType(int id) {
-    this.id = type;
+  public void setType(String type) {
+    this.type = type;
+  }
+
+  public String toString(){
+    return "id " + getId() + " type " + getType() + " value " + getValue();
   }
 }

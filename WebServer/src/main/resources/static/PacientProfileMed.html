@@ -212,7 +212,7 @@
                   <div class="col-sm-4">
                      <div class="card">
                        <div class="card-body">
-                         <h5 class="card-title">Body Tenperature</h5>
+                         <h5 class="card-title">Body Temperature</h5>
                          <p class="card-text" id="body_temp"></p>
                          <a href="#" class="btn btn-primary">Go somewhere</a>
                        </div>
@@ -256,31 +256,63 @@
             </div>
             <script>
                $(document).ready(function() {
-                        var id = location.search.substring(1);
-                        $.ajax({
-                           url: 'http://172.17.0.1:8080/patients/'+id,
-                           beforeSend: function(xhr) {
-                              xhr.setRequestHeader("Authorization", "Bearer 6QXNMEMFHNY4FJ5ELNFMP5KRW52WFXN5")
-                           }, success: function(data){
-                              document.getElementById("name").innerText = data.name;
-                              document.getElementById("age").innerText = data.age;
-                              document.getElementById("gender").innerText = data.gender;
-                              document.getElementById("weight").innerText = data.weight;
-                              document.getElementById("height").innerText = data.height;
-                              document.getElementById("numUtente").innerText = data.numUtente;
-                              if (data.conditions == "" & data.medication == "") {
-                                 document.getElementById("values").remove();
-                              }
-                              if (data.conditions == "") {
-                                 document.getElementById("Conditions").style.visibility = 'collapse';
-                              }
-                              if (data.medication == "") {
-                                 document.getElementById("Medications").style.visibility = 'collapse';
-                              }
-                           }
-                        });    
+                  connect();
+                  var id = location.search.substring(1);
+                  $.ajax({
+                     url: 'http://172.17.0.1:8080/patients/'+id,
+                     beforeSend: function(xhr) {
+                        xhr.setRequestHeader("Authorization", "Bearer 6QXNMEMFHNY4FJ5ELNFMP5KRW52WFXN5")
+                     }, success: function(data){
+                        document.getElementById("name").innerText = data.name;
+                        document.getElementById("age").innerText = data.age;
+                        document.getElementById("gender").innerText = data.gender;
+                        document.getElementById("weight").innerText = data.weight;
+                        document.getElementById("height").innerText = data.height;
+                        document.getElementById("numUtente").innerText = data.numUtente;
+                        if (data.conditions == "" & data.medication == "") {
+                           document.getElementById("values").remove();
+                        }
+                     }
+                  });    
+               });
+               function connect() {
+                  console.log("In connect function")
+                  var socket = new SockJS('/our-websocket');
+                  stompClient = Stomp.over(socket);  
+                  stompClient.connect({}, function(frame) {
+                     
+                     console.log('Connected: ' + frame);
+                     stompClient.subscribe('/topic/messages', function(messageOutput) {
+                        console.log("Subscribed")
+                        showMessageOutput(JSON.parse(messageOutput.body));
                      });
-              
+                  });
+               }  
+               function showMessageOutput(messageOutput) {
+                  console.log("In Show Message Output")
+                  var value = messageOutput.value;
+                  var type = messageOutput.type;
+                  console.log(type);
+                  switch (type){
+                     case "1":
+                        console.log("Here")
+                        document.getElementById("heart_rate").innerText = value;
+                        break;
+                     case "2":
+                        console.log("Here2")
+                        document.getElementById("blood_pressure").innerText = value;
+                        break;
+                     case "3":
+                        document.getElementById("body_temp").innerText = value;
+                        break;
+                     case "4":
+                        document.getElementById("glycemia").innerText = value;
+                        break;
+                     case "5":
+                        document.getElementById("o2").innerText = value;
+                        break;
+                  }
+               }
                function clearStorage() {
                   window.sessionStorage.clear();
                }

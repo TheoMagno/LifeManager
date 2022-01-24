@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
-//import org.springframework.messaging.handler.annotation.MessageMapping;
-//import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 
 import LifeManager.WebServer.service.*;
@@ -28,16 +28,24 @@ public class Controller {
     //Doctors
     @Autowired
     private AppService service;
- 
+
     @Autowired
-    private SimpMessagingTemplate template;
+    private WSService wsservice;
+ 
+    @PostMapping("/send-message")
+    public void sendMessage(@RequestBody FrontEndMessage message){
+        System.out.println("In Send Message");
+        System.out.println(message.getType());
+        FrontEndMessage mess = new FrontEndMessage(message.getId(),message.getType(),message.getValue());
+        System.out.println(mess);
+        wsservice.notifyFrontend(mess);
+    }
    
-   
-    public void greeting(@DestinationVariable int id,FrontEndMessage message) {
+    @MessageMapping("/message")
+    @SendTo("/topic/messages")
+    public FrontEndMessage greeting( int id,FrontEndMessage message) {
        // simulated delay
-       FrontEndMessage mess = new FrontEndMessage(message.getId(), message.getType(), message.getValue());
-       this.template.convertAndSend("/topic/ticks", mess);
-       System.out.println("here");
+       return message;
     }
 
     @PostMapping("/doctors")

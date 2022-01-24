@@ -35,12 +35,12 @@ public class MessageBroker {
 
     @RabbitListener(queues = "heartbeat")
     public void receive_heart_beat(String in) throws InterruptedException, ResourceNotFoundException {
-       
+        System.out.println("Receiving");
         JSONObject jo = new JSONObject(in);
         double heart_beat = jo.getDouble("heartbeat");
 
         int type = jo.getInt("type");
-
+        System.out.println(type);
         int s_id = jo.getInt("id");
         //System.out.println(s_id);
         //System.out.println(heartbeat.containsKey(s_id));
@@ -52,6 +52,11 @@ public class MessageBroker {
                 q.poll();
             }
             q.add(heart_beat);
+            //FrontEndMessage mess = new FrontEndMessage(s_id, type, String.valueOf(heart_beat)); //criar uma instancia para frontend message
+            FrontEndMessage mess = new FrontEndMessage(String.valueOf(s_id), String.valueOf(type), String.valueOf(heart_beat)); //criar uma instancia para frontend message
+
+            controller.sendMessage(mess);
+            
             //heartbeat.replace(s_id,q);
            
             //heartbeat will contain a key value pair defined as sensor_id : sensorqueue
@@ -63,9 +68,10 @@ public class MessageBroker {
             System.out.println("I should only appear once.");
             queue.add(heart_beat);
             heartbeat.put(s_id,queue);
-            FrontEndMessage mess = new FrontEndMessage(s_id, type, String.valueOf(heart_beat)); //criar uma instancia para frontend message
-            
-            controller.greeting(s_id , mess); //Sends message to greeting method in controller
+            FrontEndMessage mess = new FrontEndMessage(String.valueOf(s_id), String.valueOf(type), String.valueOf(heart_beat)); //criar uma instancia para frontend message
+
+            controller.sendMessage(mess);
+            //controller.greeting(s_id , mess); //Sends message to greeting method in controller
             //controller.addSensor(type);
             
         }
@@ -88,14 +94,21 @@ public class MessageBroker {
             }
             q.add(sugar_level);
             sugar.replace(s_id,q);
+
+            FrontEndMessage mess = new FrontEndMessage(String.valueOf(s_id), String.valueOf(type), String.valueOf(sugar_level)); //criar uma instancia para frontend message
+
+            controller.sendMessage(mess);
         }
         else{
             Queue queue = new LinkedList<String>();
             queue.add(sugar_level);
             sugar.put(s_id,queue);
-            FrontEndMessage mess = new FrontEndMessage(s_id, type, String.valueOf(sugar_level)); //criar uma instancia para frontend message
+            //FrontEndMessage mess = new FrontEndMessage(s_id, type, String.valueOf(sugar_level)); //criar uma instancia para frontend message
+            FrontEndMessage mess = new FrontEndMessage(String.valueOf(s_id), String.valueOf(type), String.valueOf(sugar_level)); //criar uma instancia para frontend message
+
+            controller.sendMessage(mess);
             
-            controller.greeting(s_id , mess); //Sends message to greeting method in controller
+            //controller.greeting(s_id , mess); //Sends message to greeting method in controller
             //controller.addSensor(type);
             //System.out.println("sugar "+s_id);
             //sugar will contain the most recent value from the sensor
@@ -121,15 +134,22 @@ public class MessageBroker {
             double[] bp = {systolic,diastolic};
             q.add(bp);
             blood_pressure.replace(s_id,q);
+
+            FrontEndMessage mess = new FrontEndMessage(String.valueOf(s_id), String.valueOf(type), String.valueOf(systolic)); //criar uma instancia para frontend message
+
+            controller.sendMessage(mess);
         }
         else{
             Queue queue = new LinkedList<String[]>();
             double[] bp = {systolic,diastolic};
             queue.add(bp);
             blood_pressure.put(s_id,queue);
-            FrontEndMessage mess = new FrontEndMessage(s_id, type, String.valueOf(systolic)); //criar uma instancia para frontend message
+            FrontEndMessage mess = new FrontEndMessage(String.valueOf(s_id), String.valueOf(type), String.valueOf(systolic)); //criar uma instancia para frontend message
+
+            controller.sendMessage(mess);
+            //FrontEndMessage mess = new FrontEndMessage(s_id, type, String.valueOf(systolic)); //criar uma instancia para frontend message
             
-            controller.greeting(s_id , mess); //Sends message to greeting method in controller
+            //controller.greeting(s_id , mess); //Sends message to greeting method in controller
             //controller.addSensor(type);
             //System.out.println("BP  "+s_id);
             //blood_pressure will contain the most recent value from the sensor
@@ -152,14 +172,22 @@ public class MessageBroker {
             }
             q.add(body_temp);
             temperature.replace(s_id,q);
+
+            FrontEndMessage mess = new FrontEndMessage(String.valueOf(s_id), String.valueOf(type), String.valueOf(body_temp)); //criar uma instancia para frontend message
+
+            controller.sendMessage(mess);
         }
         else{
             Queue queue = new LinkedList<String>();
             queue.add(body_temp);
             temperature.put(s_id,queue);
-            FrontEndMessage mess = new FrontEndMessage(s_id, type, String.valueOf(body_temp)); //criar uma instancia para frontend message
+            FrontEndMessage mess = new FrontEndMessage(String.valueOf(s_id), String.valueOf(type), String.valueOf(body_temp)); //criar uma instancia para frontend message
+
+            controller.sendMessage(mess);
+
+            //FrontEndMessage mess = new FrontEndMessage(s_id, type, String.valueOf(body_temp)); //criar uma instancia para frontend message
             
-            controller.greeting(s_id , mess); //Sends message to greeting method in controller
+            //controller.greeting(s_id , mess); //Sends message to greeting method in controller
             //controller.addSensor(type);
             //System.out.println("temp " + s_id);
             //temperature will contain the most recent value from the sensor
@@ -181,14 +209,21 @@ public class MessageBroker {
             }
             q.add( oxygen );
             oxygenhm.replace(s_id,q);
+
+            FrontEndMessage mess = new FrontEndMessage(String.valueOf(s_id), String.valueOf(type), String.valueOf(oxygen)); //criar uma instancia para frontend message
+
+            controller.sendMessage(mess);
         }
         else{
             Queue queue = new LinkedList<String>();
             queue.add( oxygen );
             oxygenhm.put(s_id,queue);
-            FrontEndMessage mess = new FrontEndMessage(s_id, type, String.valueOf(oxygen)); //criar uma instancia para frontend message
+            FrontEndMessage mess = new FrontEndMessage(String.valueOf(s_id), String.valueOf(type), String.valueOf(oxygen)); //criar uma instancia para frontend message
+
+            controller.sendMessage(mess);
+            //FrontEndMessage mess = new FrontEndMessage(s_id, type, String.valueOf(oxygen)); //criar uma instancia para frontend message
             
-            controller.greeting(s_id , mess); //Sends message to greeting method in controller
+            //controller.greeting(s_id , mess); //Sends message to greeting method in controller
             //controller.addSensor(type);
             //System.out.println("O2 " +  s_id );
         }
