@@ -100,31 +100,31 @@
               <div class="container">
 
                 <label for="uname"><b>Full Name</b></label>
-                <input type="text" placeholder="Enter Full Name" name="uname" required>
+                <input type="text" placeholder="Enter Full Name" name="uname" id="uname" required>
 
                 <label for="uID"><b>Medical ID</b></label>
-                <input type="text" placeholder="Enter Medical ID" name="uID" required>
+                <input type="text" placeholder="Enter Medical ID" name="uID" id="uID" required>
 
                 <label for="uage"><b>Age</b></label>
-                <input type="text" placeholder="Enter Age" name="uage" required>
+                <input type="text" placeholder="Enter Age" name="uage" id="uage" required>
 
                 <label for="ugender"><b>Gender</b></label>
-                <input type="text" placeholder="Enter Gender" name="ugender" required>
+                <input type="text" placeholder="Enter Gender" name="ugender" id="ugender" required pattern="M|F">
 
                 <label for="uemail"><b>Email</b></label>
-                <input type="text" placeholder="Enter Email" name="uemail" required>
+                <input type="text" placeholder="Enter Email" name="uemail" id="uemail" required>
 
                 <label for="uworkplace"><b>Workplace</b></label>
-                <input type="text" placeholder="Enter Workplace" name="uworkplace" required>
+                <input type="text" placeholder="Enter Workplace" name="uworkplace" id="uworkplace" required>
 
                 <label for="uspeciality"><b>Speciality</b></label>
-                <input type="text" placeholder="Enter Speciality" name="uspeciality" required>
+                <input type="text" placeholder="Enter Speciality" name="uspeciality" id="uspeciality" required>
             
                 <label for="psw"><b>Password</b></label>
-                <input type="password" placeholder="Enter Password" name="psw" required>
+                <input type="password" placeholder="Enter Password" name="psw" id="psw" required>
 
                 <label for="psw"><b>Repeat Password</b></label>
-                <input type="password" placeholder="Repeat Password" name="psw" required>
+                <input type="password" placeholder="Repeat Password" name="psw" id="cpsw" required>
             
                 <button onclick="myFunction()">Regist</button>
               </div>
@@ -134,7 +134,17 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
         <script>
           function myFunction() {
-            alert("Medical Staff successfully registered!!");
+            var data = {
+              "name": document.getElementById("uname").value,
+              "medicalID": document.getElementById("uID").value,
+              "age": document.getElementById("uage").value,
+              "gender": document.getElementById("ugender").value,
+              "email": document.getElementById("uemail").value,
+              "workplace": document.getElementById("uworkplace").value,
+              "speciality": document.getElementById("uspeciality").value,
+              "password": document.getElementById("psw").value
+            };
+            $.post('http://172.17.0.1/doctors', data)
           }
           function clearStorage() {
                 window.sessionStorage.clear();

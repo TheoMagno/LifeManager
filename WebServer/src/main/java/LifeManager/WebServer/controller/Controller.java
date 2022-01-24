@@ -70,9 +70,9 @@ public class Controller {
     }
 
     //Deletes Doctor by id.
-    @DeleteMapping("/doctors/{id}")
-    public String deleteDoctor(@PathVariable(value = "id") Long id) {
-        return service.deleteDoctor(id);
+    @DeleteMapping("/doctors/{medicalID}")
+    public String deleteDoctor(@PathVariable(value = "medicalID") Long medicalID) {
+        return service.deleteDoctor(medicalID);
     }
 
     //Gets the list of specializations.
@@ -104,9 +104,9 @@ public class Controller {
     }
 
     //Deletes Patient by id.
-    @DeleteMapping("/patients/{id}")
-    public String deletePatient(@PathVariable(value = "id") Long id) {
-        return service.deletePatient(id);
+    @DeleteMapping("/patients/{numUtente}")
+    public String deletePatient(@PathVariable(value = "numUtente") Long numUtente) {
+        return service.deletePatient(numUtente);
     }
 
     //Gets Patient by id.

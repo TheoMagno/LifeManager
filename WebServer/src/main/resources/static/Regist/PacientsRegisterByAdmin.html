@@ -106,25 +106,28 @@
                 <input type="text" placeholder="Enter National Health Service User ID" name="uID" required>
 
                 <label for="uage"><b>Age</b></label>
-                <input type="text" placeholder="Enter Age" name="uage" required>
+                <input type="text" placeholder="Enter Age" name="uage" id="uage" required>
 
                 <label for="ugender"><b>Gender</b></label>
-                <input type="text" placeholder="Enter Gender" name="ugender" required>
+                <input type="text" placeholder="Enter Gender" name="ugender" id="ugender" required pattern="M|F">
 
                 <label for="uweight"><b>Weight</b></label>
-                <input type="text" placeholder="Enter Weight" name="uweight" required>
+                <input type="text" placeholder="Enter Weight" name="uweight" id="uweight" required>
 
                 <label for="uheight"><b>Height</b></label>
-                <input type="text" placeholder="Enter Height" name="uheight" required>
+                <input type="text" placeholder="Enter Height" name="uheight" id="uheight" required>
 
                 <label for="uemail"><b>Email</b></label>
-                <input type="text" placeholder="Enter Email" name="uemail" required>
+                <input type="text" placeholder="Enter Email" name="uemail" id="uemail" required>
+
+                <label for="udoctor"><b>Doctor</b></label>
+                <input type="text" placeholder="Enter Medical ID" name="udoctor" id="udoctor" required>
             
                 <label for="psw"><b>Password</b></label>
-                <input type="password" placeholder="Enter Password" name="psw" required>
+                <input type="password" placeholder="Enter Password" name="psw" id="psw" required>
 
                 <label for="psw"><b>Repeat Password</b></label>
-                <input type="password" placeholder="Repeat Password" name="psw" required>
+                <input type="password" placeholder="Repeat Password" name="psw" id="cpsw" required>
             
                 <button onclick="myFunction()">Regist</button>
               </div>
@@ -134,7 +137,17 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
         <script>
           function myFunction() {
-            alert("Pacient successfully registered!!");
+            var data = {
+              "name": document.getElementById("uname").value,
+              "numUtente": document.getElementById("uID").value,
+              "age": document.getElementById("uage").value,
+              "gender": document.getElementById("ugender").value,
+              "weight": document.getElementById("uweight").value,
+              "height": document.getElementById("uheight").value,
+              "email": document.getElementById("uemail").value,
+              "password": document.getElementById("psw").value
+            };
+            $.post('http://172.17.0.1/doctors/'+document.getElementById("udoctor")+'/patients', data);
           }
           function clearStorage() {
                 window.sessionStorage.clear();

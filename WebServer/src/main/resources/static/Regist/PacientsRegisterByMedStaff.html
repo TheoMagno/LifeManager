@@ -100,31 +100,31 @@
               <div class="container">
 
                 <label for="uname"><b>Full Name</b></label>
-                <input type="text" placeholder="Enter Full Name" name="uname" required>
+                <input type="text" placeholder="Enter Full Name" name="uname" id="uname" required>
 
                 <label for="uID"><b>National Health Service User ID</b></label>
-                <input type="text" placeholder="Enter National Health Service User ID" name="uID" required>
+                <input type="text" placeholder="Enter National Health Service User ID" name="uID" id="uID" required>
 
                 <label for="uage"><b>Age</b></label>
-                <input type="text" placeholder="Enter Age" name="uage" required>
+                <input type="text" placeholder="Enter Age" name="uage" id="uage" required>
 
                 <label for="ugender"><b>Gender</b></label>
-                <input type="text" placeholder="Enter Gender" name="ugender" required>
+                <input type="text" placeholder="Enter Gender" name="ugender" id="ugender" required pattern="M|F">
 
                 <label for="uweight"><b>Weight</b></label>
-                <input type="text" placeholder="Enter Weight" name="uweight" required>
+                <input type="text" placeholder="Enter Weight" name="uweight" id="uweight" required>
 
                 <label for="uheight"><b>Height</b></label>
-                <input type="text" placeholder="Enter Height" name="uheight" required>
+                <input type="text" placeholder="Enter Height" name="uheight" id="uheight" required>
 
                 <label for="uemail"><b>Email</b></label>
-                <input type="text" placeholder="Enter Email" name="uemail" required>
+                <input type="text" placeholder="Enter Email" name="uemail" id="uemail" required>
             
                 <label for="psw"><b>Password</b></label>
-                <input type="password" placeholder="Enter Password" name="psw" required>
+                <input type="password" placeholder="Enter Password" name="psw" id="psw" required>
 
                 <label for="psw"><b>Repeat Password</b></label>
-                <input type="password" placeholder="Repeat Password" name="psw" required>
+                <input type="password" placeholder="Repeat Password" name="psw" id="psw" required>
             
                 <button onclick="myFunction()">Register Patient</button>
               </div>
@@ -133,6 +133,19 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
         <script>
+          function myFunction() {
+            var data = {
+              "name": document.getElementById("uname").value,
+              "numUtente": document.getElementById("uID").value,
+              "age": document.getElementById("uage").value,
+              "gender": document.getElementById("ugender").value,
+              "weight": document.getElementById("uweight").value,
+              "height": document.getElementById("uheight").value,
+              "email": document.getElementById("uemail").value,
+              "password": document.getElementById("psw").value
+            };
+            $.post('http://172.17.0.1/doctors/'+window.sessionStorage.getItem("medicalID")+'/patients', data);
+          }
           function clearStorage() {
                 window.sessionStorage.clear();
           }

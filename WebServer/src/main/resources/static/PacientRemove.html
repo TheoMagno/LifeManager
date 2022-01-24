@@ -100,7 +100,7 @@
               <div class="container">
 
                 <label for="uID"><b>National Health Service User ID</b></label>
-                <input type="text" placeholder="Enter National Health Service User ID" name="uID" required>
+                <input type="text" placeholder="Enter National Health Service User ID" name="uID" id="uid" required>
 
                 <button onclick="myFunction()">Remove</button>
               </div>
@@ -109,11 +109,19 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
         <script>
-          function myFunction() {
-            alert("Pacient successfully removed!!");
+            function myFunction() {
+              $.ajax({
+                url: 'http://172.17.0.1:8080/patients/'+document.getElementById("uid").value,
+                type: "DELETE"
+                , success: function(data){
+                alert("Patient successfully removed!!") 
+                }, error: function(result){ 
+                console.log('There are no Patient with this id!!') 
+              }
+            });
           }
           function clearStorage() {
-            window.sessionStorage.clear();
+                window.sessionStorage.clear();
           }
         </script>
 

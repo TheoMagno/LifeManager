@@ -25,9 +25,10 @@ public class AppService {
     }
 
     //Deletes Patient by id
-    public String deletePatient(Long id) {
-        patients.deleteById(id);
-        return "Patient removed!!" + id;
+    public String deletePatient(Long numUtente) {
+        Patient p = getByUtente(numUtente).get(0);
+        patients.deleteById(p.getId());
+        return "Patient removed!!" + numUtente;
     }
 
     //Gets Patient by numUtente
