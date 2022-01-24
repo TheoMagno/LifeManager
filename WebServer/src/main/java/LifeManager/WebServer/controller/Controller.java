@@ -48,11 +48,13 @@ public class Controller {
        return message;
     }
 
+    //Post a Doctor requesting a Doctor object.
     @PostMapping("/doctors")
     public Doctor addDoctor(@Valid @RequestBody Doctor doctor) {
         return service.saveDoctor(doctor);
     }
 
+    //Gets Doctors; there are 3 optional Paramaters: medicalID, name and specialization. The first one returns Doctors with medical number equals to medicalID; the second one returns Doctors with name equals to name; the third one returns Doctors with specialization equals to speciality.
     @GetMapping("/doctors")
     public List<Doctor> findDoctors(@RequestParam(required = false) Long medicalID, @RequestParam(required=false) String name, @RequestParam(required = false) String speciality) {
         if (medicalID != null) {
@@ -67,22 +69,26 @@ public class Controller {
         return service.getAllDoctors();
     }
 
+    //Deletes Doctor by id.
     @DeleteMapping("/doctors/{id}")
     public String deleteDoctor(@PathVariable(value = "id") Long id) {
         return service.deleteDoctor(id);
     }
 
+    //Gets the list of specializations.
     @GetMapping("/doctors/types")
     public List<String> getSpecialization() {
         return service.getDoctorSpecializations();
     }
 
     //Patients
+    //Posts a Patient and associates them to a Doctor, requires a medicalID and a Patient object.
     @PostMapping("/doctors/{id}/patients")
     public Patient addPatient(@PathVariable(value = "id") Long medicalID, @Valid @RequestBody Patient patient) {
         return service.savePatient(medicalID, patient);
     }
 
+    //Gets Patients; there are 3 optional Parameters: numUtente, name and speciality. The first returns Patients with the health service number equals to numUtente; the second one returns Patients with name similar to name; the third one returns Patients whose Doctor's specializations is equal to speciality.
     @GetMapping("/patients")
     public List<Patient> findPatients(@RequestParam(required = false) Long numUtente, @RequestParam(required=false) String name, @RequestParam(required = false) String speciality) {
         if (numUtente != null) {
@@ -97,34 +103,45 @@ public class Controller {
         return service.getAllPatients();
     }
 
+    //Deletes Patient by id.
     @DeleteMapping("/patients/{id}")
     public String deletePatient(@PathVariable(value = "id") Long id) {
         return service.deletePatient(id);
     }
 
+    //Gets Patient by id.
     @GetMapping("/patients/{id}")
     public Optional<Patient> getPatient(@PathVariable(value = "id") Long id) {
         return service.getPatientById(id);
     }
 
     /*Sensors*/
+    //Gets all Sensors.
     @GetMapping("/sensors")
     public List<Sensor> findSensors() {
         return service.getAllSensors();
     }
 
+    //Adds a Sensor.
     public Sensor addSensor(int type){
         return service.saveSensor(type);
     }
 
 
     //Alarms
+    //Gets all Alarms.
     @GetMapping("/alarms")
     public List<Alarm> findAlarms() {
         return service.getAllAlarms();
     }
 
+    //Adds an Alarm.
+    public Alarm addAlarm(Alarm alarm) {
+        return service.saveAlarm(alarm);
+    }
+
     //Login
+    //Request used for the login. Requires an "username" (medicalID or numUtente) and a password; if there is an user with these credentials returns true, otherwise returns false.
     @GetMapping("/login")
     public boolean login(@RequestParam(required = false) Long medicalID, @RequestParam(required = false) Long numUtente, @RequestParam(required = true) String password) {
         if (medicalID != null) {
