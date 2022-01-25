@@ -119,7 +119,9 @@
                 <label for="uheight"><b>Height</b></label>
                 <input type="text" placeholder="Enter Height" name="uheight" id="uheight" required>
 
-               
+                <label for="uemail"><b>Email</b></label>
+                <input type="email" placeholder="Enter email" name="uemail" id="uemail" required>
+
                 <label for="psw"><b>Password</b></label>
                 <input type="password" placeholder="Enter Password" name="psw" id="psw" required>
 
@@ -142,7 +144,7 @@
               "gender": document.getElementById("ugender").value,
               "weight": document.getElementById("uweight").value,
               "height": document.getElementById("uheight").value,
-              
+              "email": document.getElementById("uemail").value,
               "password": document.getElementById("psw").value
             };
             //$.post('http://172.17.0.1/doctors/'+window.sessionStorage.getItem("medicalID")+'/patients', data);

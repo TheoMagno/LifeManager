@@ -144,7 +144,7 @@
               "speciality": document.getElementById("uspeciality").value,
               "password": document.getElementById("psw").value
             };
-            $.post('http://172.17.0.1/doctors', data)
+            $.post('http://172.17.0.1:8080/doctors', JSON.stringify(data))
           }
           function clearStorage() {
                 window.sessionStorage.clear();

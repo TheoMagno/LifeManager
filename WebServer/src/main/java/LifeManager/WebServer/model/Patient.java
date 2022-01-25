@@ -29,6 +29,7 @@ public class Patient {
     private List<String> medication;
     @ElementCollection
     private List<String> conditions;
+    private String email;
     private String password;
     @ManyToOne
     @JoinColumn(name="doctor")
@@ -48,6 +49,7 @@ public class Patient {
         this.gender = gender;
         this.weight = weight;
         this.height = height;
+        this.email = email;
         this.medication = new ArrayList<String>();
         this.conditions = new ArrayList<String>();
         this.sensors = new ArrayList<Sensor>();
@@ -114,6 +116,14 @@ public class Patient {
     }
     public void setGender(char gender) {
         this.gender = gender;
+    }
+
+    @Column(name = "email", nullable = false)
+    public String getEmail() {
+        return email;
+    }
+    public void setEmail(String email) {
+        this.email=email;
     }
 
     public void addMedication(String medication) {

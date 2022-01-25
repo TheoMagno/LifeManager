@@ -118,7 +118,7 @@
                 <input type="text" placeholder="Enter Height" name="uheight" id="uheight" required>
 
                 <label for="uemail"><b>Email</b></label>
-                <input type="text" placeholder="Enter Email" name="uemail" id="uemail" required>
+                <input type="email" placeholder="Enter Email" name="uemail" id="uemail" required>
 
                 <label for="udoctor"><b>Doctor</b></label>
                 <input type="text" placeholder="Enter Medical ID" name="udoctor" id="udoctor" required>
@@ -147,7 +147,7 @@
               "email": document.getElementById("uemail").value,
               "password": document.getElementById("psw").value
             };
-            $.post('http://172.17.0.1/doctors/'+document.getElementById("udoctor")+'/patients', data);
+            $.post('http://172.17.0.1:8080/doctors/'+document.getElementById("udoctor")+'/patients', JSON.stringify(data));
           }
           function clearStorage() {
                 window.sessionStorage.clear();
