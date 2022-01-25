@@ -17,7 +17,7 @@ public class WSService {
     }
 
     public void notifyFrontend(FrontEndMessage message){
-        System.out.println("Notifying");
+        //System.out.println("Notifying");
         wstemplate.convertAndSend("/topic/messages", message);
     }
     

@@ -35,12 +35,12 @@ public class MessageBroker {
 
     @RabbitListener(queues = "heartbeat")
     public void receive_heart_beat(String in) throws InterruptedException, ResourceNotFoundException {
-        System.out.println("Receiving");
+        //System.out.println("Receiving");
         JSONObject jo = new JSONObject(in);
         double heart_beat = jo.getDouble("heartbeat");
 
         int type = jo.getInt("type");
-        System.out.println(type);
+        //System.out.println(type);
         int s_id = jo.getInt("id");
         //System.out.println(s_id);
         //System.out.println(heartbeat.containsKey(s_id));
@@ -65,7 +65,7 @@ public class MessageBroker {
         else{
             Queue queue = new LinkedList<String>();
             //System.out.println("heart "+s_id);
-            System.out.println("I should only appear once.");
+            //System.out.println("I should only appear once.");
             queue.add(heart_beat);
             heartbeat.put(s_id,queue);
             FrontEndMessage mess = new FrontEndMessage(String.valueOf(s_id), String.valueOf(type), String.valueOf(heart_beat)); //criar uma instancia para frontend message

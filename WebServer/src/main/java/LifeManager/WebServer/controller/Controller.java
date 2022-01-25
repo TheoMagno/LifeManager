@@ -34,10 +34,10 @@ public class Controller {
  
     @PostMapping("/send-message")
     public void sendMessage(@RequestBody FrontEndMessage message){
-        System.out.println("In Send Message");
-        System.out.println(message.getType());
+        //System.out.println("In Send Message");
+        //System.out.println(message.getType());
         FrontEndMessage mess = new FrontEndMessage(message.getId(),message.getType(),message.getValue());
-        System.out.println(mess);
+        //System.out.println(mess);
         wsservice.notifyFrontend(mess);
     }
    
@@ -85,6 +85,7 @@ public class Controller {
     //Posts a Patient and associates them to a Doctor, requires a medicalID and a Patient object.
     @PostMapping("/doctors/{id}/patients")
     public Patient addPatient(@PathVariable(value = "id") Long medicalID, @Valid @RequestBody Patient patient) {
+        System.out.println("I'M HERE");
         return service.savePatient(medicalID, patient);
     }
 

@@ -1,5 +1,7 @@
+
 <!DOCTYPE html>
 <html>
+    <meta charset="UTF-8">
     <head>
         <!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
         <title> Pacient Register</title>
@@ -92,7 +94,7 @@
             </div>
         </nav>
         
-        <form action="../MedStaffPage.html" method="post">
+        <form >
             <div class="container" style="text-align: center; margin-top: 2%; margin-bottom: 2%;">
                 <h1 style="text-align: center; margin-top: 2%;  font-family: 'Raleway',sans-serif; font-size: 45px; font-weight: 500; line-height: 48px;">Pacient Register</h1>
             </div>
@@ -117,9 +119,7 @@
                 <label for="uheight"><b>Height</b></label>
                 <input type="text" placeholder="Enter Height" name="uheight" id="uheight" required>
 
-                <label for="uemail"><b>Email</b></label>
-                <input type="text" placeholder="Enter Email" name="uemail" id="uemail" required>
-            
+               
                 <label for="psw"><b>Password</b></label>
                 <input type="password" placeholder="Enter Password" name="psw" id="psw" required>
 
@@ -128,23 +128,36 @@
             
                 <button onclick="myFunction()">Register Patient</button>
               </div>
-
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+        </form>      
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
         <script>
           function myFunction() {
-            var data = {
+            
+            var dataa = {
               "name": document.getElementById("uname").value,
               "numUtente": document.getElementById("uID").value,
               "age": document.getElementById("uage").value,
               "gender": document.getElementById("ugender").value,
               "weight": document.getElementById("uweight").value,
               "height": document.getElementById("uheight").value,
-              "email": document.getElementById("uemail").value,
+              
               "password": document.getElementById("psw").value
             };
-            $.post('http://172.17.0.1/doctors/'+window.sessionStorage.getItem("medicalID")+'/patients', data);
+            //$.post('http://172.17.0.1/doctors/'+window.sessionStorage.getItem("medicalID")+'/patients', data);
+            console.log(JSON.stringify(dataa));
+            console.log("http://172.17.0.1:8080/doctors/"+window.sessionStorage.getItem("medicalID")+"/patients")
+            $.ajax({ 
+              type:"POST",
+              url: "http://172.17.0.1:8080/doctors/"+window.sessionStorage.getItem("medicalID")+"/patients",
+              data: JSON.stringify(dataa),
+              
+              beforeSend: function(xhr) {
+                                    xhr.setRequestHeader("Authorization", "Bearer 6QXNMEMFHNY4FJ5ELNFMP5KRW52WFXN5")
+                                }
+              
+            }); 
           }
           function clearStorage() {
                 window.sessionStorage.clear();

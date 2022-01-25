@@ -64,7 +64,7 @@ public class Patient {
     public Long getNumUtente() {
         return numUtente;
     }
-    public void setMedicalID(Long numUtente) {
+    public void setNumUtente(Long numUtente) {
         this.numUtente = numUtente;
     }
 
