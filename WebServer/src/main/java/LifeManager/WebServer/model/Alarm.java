@@ -14,33 +14,22 @@ public class Alarm {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long alarm_id;
-
-    //Patient Id
-    @ManyToOne()
-    @JoinColumn(name = "sensor_id")
-    private Sensor sensor;
-    private short state;
+   
+    private int type;
     private int value;
-    private char hilo;
+    
 
     public Alarm(){
 
     }
 
-    public Alarm(Sensor sensor, short state, short value, char hilo){
-        this.sensor = sensor;
-        this.state = state;
+    public Alarm( int type, int value){
+        this.type = type;
         this.value = value;
-        this.hilo = hilo;
+       
     }
 
-    public Sensor getSensor(){
-        return this.sensor;
-    }
-    public Long getId(){
-        return this.alarm_id;
-  
-    }
+   
 
     @Column(name = "value", nullable = false)
     public int getValue() {
@@ -50,19 +39,13 @@ public class Alarm {
         this.value = value;
     }
 
-    @Column(name = "state", nullable = false)
-    public short getState() {
-        return state;
+    @Column(name = "type", nullable = false)
+    public int getState() {
+        return type;
     }
-    public void setstate(Short state) {
-        this.state = state;
+    public void setstate(int type) {
+        this.type = type;
     }
 
-    @Column(name = "hilo", nullable = false)
-    public char getHilo() {
-        return this.hilo;
-    }
-    public void setHilo(char state) {
-        this.hilo = state;
-    }
+    
 }

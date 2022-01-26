@@ -13,17 +13,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
+
 
 import LifeManager.WebServer.service.*;
 import LifeManager.WebServer.model.*;
 
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins={ "*" }, allowedHeaders = "*")
 public class Controller {
     //Doctors
     @Autowired
@@ -32,10 +31,42 @@ public class Controller {
     @Autowired
     private WSService wsservice;
  
-    @PostMapping("/send-message")
+    //@PostMapping("/send-message")
     public void sendMessage(@RequestBody FrontEndMessage message){
         //System.out.println("In Send Message");
         //System.out.println(message.getType());
+        /*switch (message.getType()){
+            case "1":
+                if (Integer.parseInt(message.getValue()) > 95){
+                    Alarm alarm = new Alarm(Integer.parseInt(message.getType()), Integer.parseInt(message.getValue()));
+                    addAlarm(alarm);
+                }
+                break;
+            case "2":
+                if (Integer.parseInt(message.getValue()) > 129){
+                    Alarm alarm2 = new Alarm(Integer.parseInt(message.getType()), Integer.parseInt(message.getValue()));
+                    addAlarm(alarm2);
+                }
+                break;
+            case "3":
+                if (Float.parseFloat(message.getValue()) > 38.3){
+                    Alarm alarm3 = new Alarm(Integer.parseInt(message.getType()), Integer.parseInt(message.getValue()));
+                    addAlarm(alarm3);
+                }
+                break;
+            case "4":
+                if (Float.parseFloat(message.getValue()) > 7){
+                    Alarm alarm4 = new Alarm(Integer.parseInt(message.getType()), Integer.parseInt(message.getValue()));
+                    addAlarm(alarm4);
+                }
+                break;
+            case "5":
+                if (Float.parseFloat(message.getValue()) < 7){
+                    Alarm alarm5 = new Alarm(Integer.parseInt(message.getType()), Integer.parseInt(message.getValue()));
+                    addAlarm(alarm5);  
+                }
+                break;
+        }*/
         FrontEndMessage mess = new FrontEndMessage(message.getId(),message.getType(),message.getValue());
         //System.out.println(mess);
         wsservice.notifyFrontend(mess);
