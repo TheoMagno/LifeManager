@@ -92,7 +92,7 @@
             </div>
         </nav>
         
-        <form action="../AdminPage.html" method="post">
+        <div>
             <div class="container" style="text-align: center; margin-top: 2%; margin-bottom: 2%;">
                 <h1 style="text-align: center; margin-top: 2%;  font-family: 'Raleway',sans-serif; font-size: 45px; font-weight: 500; line-height: 48px;">Pacient Register</h1>
             </div>
@@ -131,13 +131,13 @@
             
                 <button onclick="myFunction()">Regist</button>
               </div>
-
+        </div>
          <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
         <script>
-          function myFunction() {
-            var data = {
+           function myFunction() { 
+            var dataa = {
               "name": document.getElementById("uname").value,
               "numUtente": document.getElementById("uID").value,
               "age": document.getElementById("uage").value,
@@ -147,7 +147,18 @@
               "email": document.getElementById("uemail").value,
               "password": document.getElementById("psw").value
             };
-            $.post('http://172.17.0.1:8080/doctors/'+document.getElementById("udoctor")+'/patients', JSON.stringify(data));
+            //$.post('http://172.17.0.1/doctors/'+window.sessionStorage.getItem("medicalID")+'/patients', data);
+            console.log(JSON.stringify(dataa));
+            console.log("http://172.17.0.1:8080/doctors/"+document.getElementById("udoctor")+"/patients")
+            $.ajax({ 
+              type:"POST",
+              contentType: "application/json",
+              url: "http://172.17.0.1:8080/doctors/"+document.getElementById("udoctor")+"/patients",
+              data: JSON.stringify(dataa),
+              
+        
+              
+            }); 
           }
           function clearStorage() {
                 window.sessionStorage.clear();
